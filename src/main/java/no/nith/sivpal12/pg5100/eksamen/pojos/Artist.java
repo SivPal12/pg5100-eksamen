@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Aritst {
+public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
