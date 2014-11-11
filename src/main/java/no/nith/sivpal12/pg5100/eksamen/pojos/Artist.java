@@ -17,4 +17,28 @@ public class Artist {
     private Genre genre;
     private String name;
 
+    @Override
+    public String toString() {
+        return String.format("Artist {id=%s, genre=%s, name=%s}", id, genre,
+                name);
+    }
+
+    public static class Builder {
+        private Artist artist = new Artist();
+
+        public Builder setGenre(Genre genre) {
+            artist.genre = genre;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            artist.name = name;
+            return this;
+        }
+
+        public Artist build() {
+            return artist;
+        }
+    }
+
 }
