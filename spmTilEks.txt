@@ -1,0 +1,2 @@
+Hvordan logge uten med logback at wildfly spiser loggen?
+Persistent lagring uten å definere det i wildfly.
