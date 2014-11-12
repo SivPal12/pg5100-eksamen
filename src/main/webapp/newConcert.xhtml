@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <meta charset="UTF-8" />
+    <title>New concert</title>
+</h:head>
+<h:body>
+    <h:form>
+    Artistnavn
+    <h:selectOneMenu value="#{concertController.artist}">
+        <f:selectItems value="#{artistController.allArtists}" var="item" itemLabel="#{item.name}"  />
+        <f:converter converterId="artistConverter" />
+    </h:selectOneMenu>
+    Tidspunkt
+    <h:inputText value="#{item.name}" />
+    Billettpris
+    <h:inputText value="#{item.name}" />
+    Sted
+    <h:inputText value="#{item.name}" />
+    Beskrivelse
+    <h:inputText value="#{item.name}" />
+    Antall Billetter totalt
+    <h:inputText value="#{item.name}" />
+
+    <h:commandButton value="Save" action="#{concertController.save}"/>
+    </h:form>
+</h:body>
+</html>

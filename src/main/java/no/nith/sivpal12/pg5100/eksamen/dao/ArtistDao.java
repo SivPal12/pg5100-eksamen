@@ -28,4 +28,11 @@ public class ArtistDao {
     public void save(Artist artist) {
         entityManager.persist(artist);
     }
+
+    public Artist getArtist(String artistName) {
+        return entityManager
+                .createNamedQuery(Artist.NAMED_QUERY_ONE, Artist.class)
+                .setParameter(1, artistName)
+                .getSingleResult();
+    }
 }

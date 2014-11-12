@@ -10,11 +10,19 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = Artist.NAMED_QUERY_ALL, query = "SELECT a FROM Artist a")
+        @NamedQuery(
+                name = Artist.NAMED_QUERY_ALL,
+                query = "SELECT a FROM Artist a"
+        ),
+        @NamedQuery(
+                name = Artist.NAMED_QUERY_ONE,
+                query = "SELECT a FROM Artist a WHERE a.name = ?1"
+        )
 })
 public class Artist {
 
     public static final String NAMED_QUERY_ALL = "all-artists";
+    public static final String NAMED_QUERY_ONE = "one-artist";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -50,6 +58,7 @@ public class Artist {
         this.genre = genre;
     }
 
+    // TODO Remove ?
     public static class Builder {
         private Artist artist = new Artist();
 
