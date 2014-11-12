@@ -13,14 +13,28 @@ import org.slf4j.LoggerFactory;
 
 @Model
 public class ArtistController {
-    // TODO merge to ArtistController
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ArtistController.class);
 
     @Inject
     private ArtistDao artistDao;
 
+    private Artist artist = new Artist();
+
     public List<Artist> getAllArtists() {
         return artistDao.allArtists();
+    }
+
+    public void save() {
+        LOGGER.trace(String.format("Saving %s", artist));
+        artistDao.save(artist);
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 }

@@ -1,6 +1,7 @@
 package no.nith.sivpal12.pg5100.eksamen.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class ArtistControllerTest {
     @Mock
     private ArtistDao mockArtistDao;
 
+    @Mock
+    private Artist mockArtist;
+
     @InjectMocks
     private ArtistController artistController;
 
@@ -35,5 +39,12 @@ public class ArtistControllerTest {
         when(mockArtistDao.allArtists()).thenReturn(expectedList);
 
         assertEquals(expectedList, artistController.getAllArtists());
+    }
+
+    @Test
+    public void save_CallsDaoSave() throws Exception {
+        artistController.save();
+
+        verify(mockArtistDao).save(mockArtist);
     }
 }

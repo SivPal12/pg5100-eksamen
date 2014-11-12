@@ -2,6 +2,7 @@ package no.nith.sivpal12.pg5100.eksamen.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -43,5 +44,14 @@ public class ArtistDaoTest {
                         Artist.class)).thenReturn(mockTypedQuery);
 
         assertEquals(expectedList, artistDao.allArtists());
+    }
+
+    @Test
+    public void save_CallsEntityManager() {
+        Artist artistToPersists = new Artist();
+
+        artistDao.save(artistToPersists);
+
+        verify(mockEntiryManager).persist(artistToPersists);
     }
 }

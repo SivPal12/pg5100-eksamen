@@ -8,14 +8,13 @@
 <h:body>
     <h:form>
         Name
-        <h:inputText value="#{createArtistController.name}" />
+        <h:inputText value="#{artistController.artist.name}" />
         Genre
-        <h:selectOneMenu value="#{createArtistController.genre}">
-            <c:forEach  items="#{readGenreController.all}" var="currGenre">
-                <f:selectItem itemValue="#{currGenre.genre}" itemLabel="#{currGenre.genre}" />
-            </c:forEach>
+        <h:selectOneMenu value="#{artistController.artist.genre}">
+            <f:selectItems value="#{genreController.allGenres}" var="currGenre" itemLabel="#{currGenre.genre}" />
+            <f:converter converterId="genreConverter" />
         </h:selectOneMenu>
-        <h:commandButton value="Save" action="#{createArtistController.save()}"/>
+        <h:commandButton value="Save" action="#{artistController.save}"/>
     </h:form>
 </h:body>
 </html>

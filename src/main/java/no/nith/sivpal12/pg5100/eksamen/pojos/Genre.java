@@ -26,17 +26,16 @@ public class Genre {
     private int id;
     private String genre;
 
-    /**
-     * Case insensitive matching of genre.
-     *
-     * @param genreAsString
-     * @return true if matching. Else false.
-     */
-    public boolean matchesString(String genreAsString) {
-        if (genre == null) {
-            return false;
-        }
-        return genre.equalsIgnoreCase(genreAsString);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getGenre() {
@@ -46,6 +45,36 @@ public class Genre {
     @Override
     public String toString() {
         return String.format("Genre {id=%s, genre=%s}", id, genre);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Genre other = (Genre) obj;
+        if (genre == null) {
+            if (other.genre != null) {
+                return false;
+            }
+        } else if (!genre.equals(other.genre)) {
+            return false;
+        }
+        return true;
     }
 
 }
