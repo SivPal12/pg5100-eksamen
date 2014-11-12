@@ -6,7 +6,7 @@
     <title>All Artist</title>
 </h:head>
 <h:body>
-    <h:dataTable value="#{readArtistController.allArtists}" var="item">
+    <h:dataTable value="#{artistController.allArtists}" var="item">
         <h:column>
             <f:facet name="header">Name</f:facet>
             #{item.name}
