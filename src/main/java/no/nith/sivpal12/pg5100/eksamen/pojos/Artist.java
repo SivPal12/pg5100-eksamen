@@ -5,9 +5,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Artist.NAMED_QUERY_ALL, query = "SELECT a FROM Artist a")
+})
 public class Artist {
+
+    public static final String NAMED_QUERY_ALL = "all-artists";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

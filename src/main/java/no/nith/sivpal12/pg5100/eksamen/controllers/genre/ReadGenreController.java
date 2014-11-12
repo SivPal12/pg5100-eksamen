@@ -13,12 +13,14 @@ import org.slf4j.LoggerFactory;
 
 @Model
 public class ReadGenreController {
+    // TODO merge to GenreController
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ReadGenreController.class);
 
     @PersistenceContext(unitName = "myManager")
     private EntityManager entityManager;
 
+    // TODO Create GenreDao
     public List<Genre> getAll() {
         LOGGER.trace("Getting all genres from db");
         return entityManager.createNamedQuery(Genre.NAMED_QUERY_ALL,

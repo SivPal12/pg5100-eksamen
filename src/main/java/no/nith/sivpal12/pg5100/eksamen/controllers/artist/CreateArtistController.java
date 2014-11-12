@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 @Model
 @Stateful
 public class CreateArtistController {
+    // TODO merge to ArtistController
     private static final Logger LOGGER = LoggerFactory
             .getLogger(CreateArtistController.class);
 
