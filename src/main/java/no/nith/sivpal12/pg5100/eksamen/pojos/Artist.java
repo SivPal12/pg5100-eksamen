@@ -42,6 +42,14 @@ public class Artist {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
     public static class Builder {
         private Artist artist = new Artist();
 

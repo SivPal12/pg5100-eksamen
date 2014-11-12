@@ -6,26 +6,22 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
+import no.nith.sivpal12.pg5100.eksamen.pojos.Genre;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
-public class ArtistDao {
+public class GenreDao {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(ArtistDao.class);
+            .getLogger(GenreDao.class);
 
     @PersistenceContext(unitName = "myManager")
     private EntityManager entityManager;
 
-    public List<Artist> allArtists() {
-        return entityManager.createNamedQuery(Artist.NAMED_QUERY_ALL,
-                Artist.class)
+    public List<Genre> getAllGenres() {
+        return entityManager
+                .createNamedQuery(Genre.NAMED_QUERY_ALL, Genre.class)
                 .getResultList();
-    }
-
-    public void save(Artist artist) {
-        entityManager.persist(artist);
     }
 }
