@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" >
 <h:head>
     <meta charset="UTF-8" />
     <title>New Artist</title>
@@ -7,10 +8,14 @@
 <h:body>
     <h:form>
         Name
-        <h:inputText value="#{newArtistController.name}" />
+        <h:inputText value="#{createArtistController.name}" />
         Genre
-        <h:inputText value="#{newArtistController.genre}" />
-        <h:commandButton value="Save" action="#{newArtistController.save()}"/>
+        <h:selectOneMenu value="#{createArtistController.genre}">
+            <c:forEach  items="#{readGenreController.all}" var="currGenre">
+                <f:selectItem itemValue="#{currGenre.genre}" itemLabel="#{currGenre.genre}" />
+            </c:forEach>
+        </h:selectOneMenu>
+        <h:commandButton value="Save" action="#{createArtistController.save()}"/>
     </h:form>
 </h:body>
 </html>

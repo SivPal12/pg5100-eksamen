@@ -39,6 +39,10 @@ public class Genre {
         return genre.equalsIgnoreCase(genreAsString);
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
     @Override
     public String toString() {
         return String.format("Genre {id=%s, genre=%s}", id, genre);
