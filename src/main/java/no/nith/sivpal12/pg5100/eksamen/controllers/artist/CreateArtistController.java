@@ -3,6 +3,8 @@ package no.nith.sivpal12.pg5100.eksamen.controllers.artist;
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Model;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -30,12 +32,16 @@ public class CreateArtistController {
     private EntityManager entityManager;
 
     public void save() {
-        final Genre actualGenre = entityManager
-                .createNamedQuery(Genre.NAMED_QUERY_ONE, Genre.class)
-                .setParameter(1, genre)
-                .getSingleResult();
-
-        if (actualGenre == null) {
+        Genre actualGenre;
+        try {
+            actualGenre = entityManager
+                    .createNamedQuery(Genre.NAMED_QUERY_ONE, Genre.class)
+                    .setParameter(1, genre)
+                    .getSingleResult();
+        } catch (NoResultException | NonUniqueResultException e) {
+            LOGGER.warn(String
+                    .format("Db contains more than or less than one genre of type '%s'",
+                            genre));
             // TODO Handle unknown genre
             throw new RuntimeException("not yet implemented");
         }

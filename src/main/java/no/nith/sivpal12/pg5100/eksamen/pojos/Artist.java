@@ -23,6 +23,18 @@ public class Artist {
                 name);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public static class Builder {
         private Artist artist = new Artist();
 
