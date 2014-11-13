@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+    <!-- http://www.mastertheboss.com/jboss-server/jboss-datasource/jboss-as-7-deployable-datasources -->
+    <!-- https://gist.github.com/jesuino/c867f603edde9f8d5677 -->
     <datasource jndi-name="java:jboss/datasources/oslo-konserter" pool-name="TestPool" enabled="true"
         use-java-context="true">
         <connection-url>jdbc:h2:~/oslo-konserter/oslo-konserter</connection-url>
