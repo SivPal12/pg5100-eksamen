@@ -57,10 +57,26 @@ public class ConcertDaoTest {
     @Test
     public void find_RandId_CallsEntityManagerWithId() {
         final int randId = new Random().nextInt();
+        final Concert expectedConcert = validConcert();
 
-        concertDao.find(randId);
+        when(mockEntityManager.find(Concert.class, randId)).thenReturn(
+                expectedConcert);
 
+        final Concert acturalConcert = concertDao.find(randId);
+
+        assertEquals(expectedConcert, acturalConcert);
         verify(mockEntityManager).find(Concert.class, randId);
+    }
+
+    @Test
+    public void remove_RandId_CallsEntityManagerWithResultFromFind() {
+        final int randId = new Random().nextInt();
+        final Concert concert = validConcert();
+        when(mockEntityManager.find(Concert.class, randId)).thenReturn(concert);
+
+        concertDao.remove(randId);
+
+        verify(mockEntityManager).remove(concert);
     }
 
     private static Concert validConcert() {

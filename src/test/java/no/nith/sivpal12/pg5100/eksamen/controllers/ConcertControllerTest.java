@@ -62,6 +62,15 @@ public class ConcertControllerTest {
         verify(mockConcertDao).find(rand);
     }
 
+    @Test
+    public void remove_RandId_CallsDao() {
+        final int randId = new Random().nextInt();
+
+        concertController.remove(randId);
+
+        verify(mockConcertDao).remove(randId);
+    }
+
     private static Concert validConcert() {
         final Concert concert = new Concert();
         final Artist artist = new Artist();
