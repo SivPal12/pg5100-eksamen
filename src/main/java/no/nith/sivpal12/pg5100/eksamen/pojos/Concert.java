@@ -126,7 +126,7 @@ public class Concert {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Concert)) {
             return false;
         }
         Concert other = (Concert) obj;
