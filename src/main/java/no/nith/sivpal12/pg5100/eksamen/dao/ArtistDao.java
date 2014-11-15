@@ -31,7 +31,7 @@ public class ArtistDao {
 
     public Artist getArtist(String artistName) {
         return entityManager
-                .createNamedQuery(Artist.NAMED_QUERY_ONE, Artist.class)
+                .createNamedQuery(Artist.NAMED_QUERY_BY_NAME, Artist.class)
                 .setParameter(1, artistName)
                 .getSingleResult();
     }

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta charset="UTF-8" />
     <title>New concert</title>
@@ -8,20 +11,22 @@
 <h:body>
     <h:form>
     Artistnavn
-    <h:selectOneMenu value="#{concertController.artist}">
+    <h:selectOneMenu value="#{concert.artist}">
         <f:selectItems value="#{artistController.allArtists}" var="item" itemLabel="#{item.name}"  />
         <f:converter converterId="artistConverter" />
     </h:selectOneMenu>
     Tidspunkt
-    <h:inputText value="#{item.name}" />
+    <h:inputText value="#{concert.date}" >
+        <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+    </h:inputText>
     Billettpris
-    <h:inputText value="#{item.name}" />
+    <h:inputText value="#{concert.price}" />
     Sted
-    <h:inputText value="#{item.name}" />
+    <h:inputText value="#{concert.location}" />
     Beskrivelse
-    <h:inputText value="#{item.name}" />
+    <h:inputText value="#{concert.description}" />
     Antall Billetter totalt
-    <h:inputText value="#{item.name}" />
+    <h:inputText value="#{concert.numTickets}" />
 
     <h:commandButton value="Save" action="#{concertController.save}"/>
     </h:form>

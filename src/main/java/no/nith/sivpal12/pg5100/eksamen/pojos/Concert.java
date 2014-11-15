@@ -87,4 +87,76 @@ public class Concert {
     public void setTicketsSold(int ticketsSold) {
         this.ticketsSold = ticketsSold;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result
+                + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + id;
+        result = prime * result
+                + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + numTickets;
+        result = prime * result + price;
+        result = prime * result + ticketsSold;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Concert other = (Concert) obj;
+        if (artist == null) {
+            if (other.artist != null) {
+                return false;
+            }
+        } else if (!artist.equals(other.artist)) {
+            return false;
+        }
+        if (date == null) {
+            if (other.date != null) {
+                return false;
+            }
+        } else if (!date.equals(other.date)) {
+            return false;
+        }
+        if (description == null) {
+            if (other.description != null) {
+                return false;
+            }
+        } else if (!description.equals(other.description)) {
+            return false;
+        }
+        if (id != other.id) {
+            return false;
+        }
+        if (location == null) {
+            if (other.location != null) {
+                return false;
+            }
+        } else if (!location.equals(other.location)) {
+            return false;
+        }
+        if (numTickets != other.numTickets) {
+            return false;
+        }
+        if (price != other.price) {
+            return false;
+        }
+        if (ticketsSold != other.ticketsSold) {
+            return false;
+        }
+        return true;
+    }
 }

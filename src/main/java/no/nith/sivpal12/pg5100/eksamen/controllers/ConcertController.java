@@ -1,8 +1,13 @@
 package no.nith.sivpal12.pg5100.eksamen.controllers;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
+import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
+import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,22 +17,24 @@ public class ConcertController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ConcertController.class);
 
-    private Artist artist = new Artist();
+    @Inject
+    private ConcertDao consertDao;
+
+    @Produces
+    @Named
+    private Concert concert;
 
     public void save() {
         // TODO Add date converter
-        LOGGER.debug(String.format("Saving %s", artist));
-        // TODO Auto-generated method stub
-        throw new RuntimeException(String.format("'%s' not yet implemented",
-                ConcertController.class.getName()));
-
+        LOGGER.debug(String.format("Saving %s", concert));
+        consertDao.save(concert);
+        initConcert();
     }
 
-    public Artist getArtist() {
-        return artist;
+    @PostConstruct
+    private void initConcert() {
+        concert = new Concert();
+        LOGGER.trace("Created new concert");
     }
 
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
 }

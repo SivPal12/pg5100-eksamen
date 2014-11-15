@@ -52,6 +52,7 @@ public class Genre {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+        result = prime * result + id;
         return result;
     }
 
@@ -72,6 +73,9 @@ public class Genre {
                 return false;
             }
         } else if (!genre.equals(other.genre)) {
+            return false;
+        }
+        if (id != other.id) {
             return false;
         }
         return true;
