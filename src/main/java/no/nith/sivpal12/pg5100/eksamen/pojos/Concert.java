@@ -3,6 +3,8 @@ package no.nith.sivpal12.pg5100.eksamen.pojos;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -14,6 +16,7 @@ public class Concert {
     private static final Logger LOGGER = LoggerFactory.getLogger(Concert.class);
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @OneToOne
     private Artist artist;

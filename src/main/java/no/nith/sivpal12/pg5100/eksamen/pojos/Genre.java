@@ -22,7 +22,7 @@ public class Genre {
     public static final String NAMED_QUERY_ONE = "select-one";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String genre;
 

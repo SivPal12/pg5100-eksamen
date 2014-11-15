@@ -25,7 +25,7 @@ public class Artist {
     public static final String NAMED_QUERY_BY_NAME = "one-artist";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @ManyToOne
