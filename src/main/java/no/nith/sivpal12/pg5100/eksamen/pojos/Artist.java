@@ -10,14 +10,22 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = Artist.NAMED_QUERY_ALL, query = "SELECT a FROM Artist a")
+        @NamedQuery(
+                name = Artist.NAMED_QUERY_ALL,
+                query = "SELECT a FROM Artist a"
+        ),
+        @NamedQuery(
+                name = Artist.NAMED_QUERY_BY_NAME,
+                query = "SELECT a FROM Artist a WHERE a.name = ?1"
+        )
 })
 public class Artist {
 
     public static final String NAMED_QUERY_ALL = "all-artists";
+    public static final String NAMED_QUERY_BY_NAME = "one-artist";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @ManyToOne
@@ -50,22 +58,46 @@ public class Artist {
         this.genre = genre;
     }
 
-    public static class Builder {
-        private Artist artist = new Artist();
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+        result = prime * result + id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
-        public Builder setGenre(Genre genre) {
-            artist.genre = genre;
-            return this;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
         }
-
-        public Builder setName(String name) {
-            artist.name = name;
-            return this;
+        if (obj == null) {
+            return false;
         }
-
-        public Artist build() {
-            return artist;
+        if (getClass() != obj.getClass()) {
+            return false;
         }
+        Artist other = (Artist) obj;
+        if (genre == null) {
+            if (other.genre != null) {
+                return false;
+            }
+        } else if (!genre.equals(other.genre)) {
+            return false;
+        }
+        if (id != other.id) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
     }
 
 }

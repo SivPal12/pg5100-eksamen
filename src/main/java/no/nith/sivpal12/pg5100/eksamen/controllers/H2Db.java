@@ -17,6 +17,10 @@ public class H2Db {
     private static final Logger LOGGER = LoggerFactory.getLogger(H2Db.class);
     private Server server;
 
+    // Forbid object creation
+    private H2Db() {
+    }
+
     @PostConstruct
     private void startH2ConsoleAccess() throws SQLException {
         try {
@@ -31,7 +35,7 @@ public class H2Db {
     }
 
     @PreDestroy
-    private void dsa() {
+    private void stopH2ConsoleAccess() {
         LOGGER.info("Shutting down H2 console access.");
         server.stop();
     }
