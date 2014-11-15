@@ -31,4 +31,8 @@ public class ConcertDao  {
     public void save(Concert concert) {
         entityManager.persist(concert);
     }
+
+    public Concert find(int id) {
+        return entityManager.find(Concert.class, id);
+    }
 }

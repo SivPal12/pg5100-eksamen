@@ -9,37 +9,19 @@
     <title>View concerts</title>
 </h:head>
 <h:body>
-    <h:dataTable value="#{allConcerts}" var="item">
-        <h:column>
-            <f:facet name="header">Artistnavn</f:facet>
-            <h:outputText value="#{item.artist.name}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Tidspunkt</f:facet>
-            <h:outputText value="#{item.date}">
-                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
-            </h:outputText>
-        </h:column>
-        <h:column>
-            <f:facet name="header">Billettpris</f:facet>
-            <h:outputText value="#{item.price}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Sted</f:facet>
-            <h:outputText value="#{item.location}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Beskrivelse</f:facet>
-            <h:outputText value="#{item.description}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Antall Billetter</f:facet>
-            <h:outputText value="#{item.numTickets}" />
-        </h:column>
-        <h:column>
-            <f:facet name="header">Solgte billetter</f:facet>
-            <h:outputText value="#{item.ticketsSold}" />
-        </h:column>
-    </h:dataTable>
+    <h:form>
+        <h:dataTable value="#{allConcerts}" var="item">
+            <h:column>
+                <f:facet name="header">Konsertnavn</f:facet>
+                <h:link value="#{item.name}" outcome="viewConcert" includeViewParams="true">
+                    <f:param name="id" value="#{item.id}" />
+                </h:link>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Artistnavn</f:facet>
+                <h:outputText value="#{item.artist.name}"></h:outputText>
+            </h:column>
+        </h:dataTable>
+    </h:form>
 </h:body>
 </html>
