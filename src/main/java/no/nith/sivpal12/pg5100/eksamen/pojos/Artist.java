@@ -76,7 +76,7 @@ public class Artist {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Artist)) {
             return false;
         }
         Artist other = (Artist) obj;

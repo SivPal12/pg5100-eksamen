@@ -64,7 +64,7 @@ public class Genre {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Genre)) {
             return false;
         }
         Genre other = (Genre) obj;

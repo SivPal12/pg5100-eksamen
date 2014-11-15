@@ -1,6 +1,10 @@
 package no.nith.sivpal12.pg5100.eksamen.dao;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -16,6 +20,13 @@ public class ConcertDao  {
 
     @PersistenceContext(unitName = "myManager")
     private EntityManager entityManager;
+
+    @Produces
+    @Named
+    public List<Concert> allConcerts() {
+        return entityManager.createNamedQuery(Concert.NAMED_QUERY_ALL,
+                Concert.class).getResultList();
+    }
 
     public void save(Concert concert) {
         entityManager.persist(concert);
