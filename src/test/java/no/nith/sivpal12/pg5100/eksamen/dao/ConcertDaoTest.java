@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -51,6 +52,15 @@ public class ConcertDaoTest {
                         Concert.class)).thenReturn(mockTypedQuery);
 
         assertEquals(expectedList, concertDao.allConcerts());
+    }
+
+    @Test
+    public void find_RandId_CallsEntityManagerWithId() {
+        final int randId = new Random().nextInt();
+
+        concertDao.find(randId);
+
+        verify(mockEntityManager).find(Concert.class, randId);
     }
 
     private static Concert validConcert() {

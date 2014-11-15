@@ -1,8 +1,12 @@
 package no.nith.sivpal12.pg5100.eksamen.controllers;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Date;
+import java.util.Random;
 
 import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
@@ -40,6 +44,22 @@ public class ConcertControllerTest {
         concertController.save();
 
         verify(mockConcertDao).save(validConcert);
+    }
+
+    @Test
+    public void load_CallsDAoWithId_NewConcertIsSet() {
+        assertNull(Whitebox.getInternalState(concertController, "concert"));
+        final int rand = new Random().nextInt();
+
+        when(mockConcertDao.find(rand)).thenReturn(validConcert);
+        concertController.setId(rand);
+
+        concertController.load();
+
+        final Concert actualConcert = (Concert) Whitebox.getInternalState(
+                concertController, "concert");
+        assertEquals(validConcert, actualConcert);
+        verify(mockConcertDao).find(rand);
     }
 
     private static Concert validConcert() {
