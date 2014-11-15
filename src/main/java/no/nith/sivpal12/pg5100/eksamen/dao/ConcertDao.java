@@ -35,4 +35,8 @@ public class ConcertDao  {
     public Concert find(int id) {
         return entityManager.find(Concert.class, id);
     }
+
+    public void remove(int id) {
+        entityManager.remove(find(id));
+    }
 }

@@ -21,6 +21,9 @@
                 <f:facet name="header">Artistnavn</f:facet>
                 <h:outputText value="#{item.artist.name}"></h:outputText>
             </h:column>
+            <h:column>
+                <h:commandButton value="Slett" action="#{concertController.remove(item.id)}"/>
+            </h:column>
         </h:dataTable>
     </h:form>
 </h:body>
