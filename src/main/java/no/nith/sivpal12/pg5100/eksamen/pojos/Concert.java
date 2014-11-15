@@ -6,14 +6,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_ALL,
+                query = "SELECT c FROM Concert c"
+        )
+})
 public class Concert {
     private static final Logger LOGGER = LoggerFactory.getLogger(Concert.class);
+
+    public static final String NAMED_QUERY_ALL = "all-concerts";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
