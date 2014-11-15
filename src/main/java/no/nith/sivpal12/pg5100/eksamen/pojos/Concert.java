@@ -36,6 +36,7 @@ public class Concert {
     private String description;
     private int numTickets;
     private int ticketsSold;
+    private String name;
 
     public int getId() {
         return id;
@@ -101,6 +102,14 @@ public class Concert {
         this.ticketsSold = ticketsSold;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -112,6 +121,7 @@ public class Concert {
         result = prime * result + id;
         result = prime * result
                 + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + numTickets;
         result = prime * result + price;
         result = prime * result + ticketsSold;
@@ -159,6 +169,13 @@ public class Concert {
                 return false;
             }
         } else if (!location.equals(other.location)) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
             return false;
         }
         if (numTickets != other.numTickets) {

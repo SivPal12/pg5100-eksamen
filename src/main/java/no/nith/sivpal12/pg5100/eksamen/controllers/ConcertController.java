@@ -24,11 +24,26 @@ public class ConcertController {
     @Named
     private Concert concert;
 
+    private int id;
+
     public void save() {
         // TODO Add date converter
         LOGGER.debug(String.format("Saving %s", concert));
         consertDao.save(concert);
         initConcert();
+    }
+
+    public void load() {
+        LOGGER.trace(String.format("Loading consert %d", getId()));
+        concert = consertDao.find(getId());
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @PostConstruct
