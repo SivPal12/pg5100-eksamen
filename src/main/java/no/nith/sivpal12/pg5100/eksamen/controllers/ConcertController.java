@@ -34,8 +34,13 @@ public class ConcertController {
     }
 
     public void load() {
-        LOGGER.trace(String.format("Loading consert %d", getId()));
+        LOGGER.trace(String.format("Loading consert with id '%d'", getId()));
         concert = consertDao.find(getId());
+    }
+
+    public void remove(int id) {
+        LOGGER.trace(String.format("Removing concert with id '%d'", id));
+        consertDao.remove(id);
     }
 
     public int getId() {
