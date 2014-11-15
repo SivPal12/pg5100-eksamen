@@ -26,7 +26,7 @@ public class Concert {
     public static final String NAMED_QUERY_ALL = "all-concerts";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     private Artist artist;
