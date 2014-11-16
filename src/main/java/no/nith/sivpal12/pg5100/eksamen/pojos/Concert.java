@@ -26,7 +26,7 @@ public class Concert {
     public static final String NAMED_QUERY_ALL = "all-concerts";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
     private Artist artist;
@@ -188,5 +188,16 @@ public class Concert {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return String
+                .format(
+                        "Concert {id=%s, artist=%s, date=%s, price=%s, "
+                                + "location=%s, description=%s, numTickets=%s, "
+                                + "ticketsSold=%s, name=%s}",
+                        id, artist, date, price, location, description,
+                        numTickets, ticketsSold, name);
     }
 }

@@ -1,7 +1,5 @@
 package no.nith.sivpal12.pg5100.eksamen.pojos.converters;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,13 +25,8 @@ public class GenreConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
             String value) {
-        final List<Genre> allGenres = genreDao.getAllGenres();
-
-        final Genre genre = new Genre();
-        genre.setGenre(value);
-
         // TODO Implement not found
-        return allGenres.get(allGenres.indexOf(genre));
+        return genreDao.findByName(value);
     }
 
     @Override
