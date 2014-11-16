@@ -8,7 +8,7 @@
     <h:form>
         <h:panelGrid columns="3">
             <h:outputLabel value="#{translation.concert_name}" />
-            <h:inputText id="concertName" value="#{concert.name}" />
+            <h:inputText id="concertName" value="#{concertController.uniqueConcertName}" />
             <h:message for="concertName" />
 
             <h:outputLabel value="#{translation.artist_name}" />

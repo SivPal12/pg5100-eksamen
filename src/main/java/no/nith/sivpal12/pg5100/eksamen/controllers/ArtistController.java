@@ -43,7 +43,7 @@ public class ArtistController {
         artist.setName(uniqueArtistName);
         LOGGER.trace(String.format("Saving %s", artist));
         artistDao.save(artist);
-        initArtist();
+        initFields();
     }
 
     public String getUniqueArtistName() {
@@ -55,7 +55,8 @@ public class ArtistController {
     }
 
     @PostConstruct
-    private void initArtist() {
+    private void initFields() {
         artist = new Artist();
+        uniqueArtistName = "";
     }
 }

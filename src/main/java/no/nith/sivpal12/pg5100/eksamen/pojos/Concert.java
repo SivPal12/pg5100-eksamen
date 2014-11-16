@@ -23,12 +23,18 @@ import org.slf4j.LoggerFactory;
         @NamedQuery(
                 name = Concert.NAMED_QUERY_ALL,
                 query = "SELECT c FROM Concert c"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_BY_NAME,
+                query = "SELECT c FROM Concert c WHERE c.name = ?1"
         )
 })
 public class Concert {
     private static final Logger LOGGER = LoggerFactory.getLogger(Concert.class);
 
     public static final String NAMED_QUERY_ALL = "all-concerts";
+
+    public static final String NAMED_QUERY_BY_NAME = "concert-by-name";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
