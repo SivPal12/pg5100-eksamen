@@ -7,10 +7,11 @@
 </h:head>
 <h:body>
     <h:form>
+        <h:messages/>
         Name
-        <h:inputText value="#{artistController.artist.name}" />
+        <h:inputText value="#{artistController.uniqueArtistName}" />
         Genre
-        <h:selectOneMenu value="#{artistController.artist.genre}">
+        <h:selectOneMenu value="#{artist.genre}">
             <f:selectItems value="#{genreController.allGenres}" var="currGenre" itemLabel="#{currGenre.genre}" />
             <f:converter converterId="genreConverter" />
         </h:selectOneMenu>
