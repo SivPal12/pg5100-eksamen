@@ -28,6 +28,7 @@ public class ArtistController {
     public void save() {
         LOGGER.trace(String.format("Saving %s", artist));
         artistDao.save(artist);
+        artist = new Artist();
     }
 
     public Artist getArtist() {

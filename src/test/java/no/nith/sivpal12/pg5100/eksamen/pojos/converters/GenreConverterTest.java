@@ -1,10 +1,9 @@
 package no.nith.sivpal12.pg5100.eksamen.pojos.converters;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import no.nith.sivpal12.pg5100.eksamen.dao.GenreDao;
@@ -30,15 +29,12 @@ public class GenreConverterTest {
         final String rand = String.valueOf(new Random().nextInt(50));
         final Genre expectedGenre = new Genre();
         expectedGenre.setGenre(rand);
-        final Genre genreInList = new Genre();
-        genreInList.setGenre(rand);
-        List<Genre> list = new ArrayList<>();
-        list.add(genreInList);
 
-        when(mockGenreDao.getAllGenres()).thenReturn(list);
+        when(mockGenreDao.findByName(rand)).thenReturn(expectedGenre);
 
         assertEquals(expectedGenre,
                 genreConverter.getAsObject(null, null, rand));
+        verify(mockGenreDao).findByName(rand);
     }
 
     @Test

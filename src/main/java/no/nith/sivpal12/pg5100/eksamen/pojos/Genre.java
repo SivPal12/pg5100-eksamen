@@ -22,7 +22,7 @@ public class Genre {
     public static final String NAMED_QUERY_ONE = "select-one";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String genre;
 
@@ -52,6 +52,7 @@ public class Genre {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+        result = prime * result + id;
         return result;
     }
 
@@ -63,7 +64,7 @@ public class Genre {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Genre)) {
             return false;
         }
         Genre other = (Genre) obj;
@@ -72,6 +73,9 @@ public class Genre {
                 return false;
             }
         } else if (!genre.equals(other.genre)) {
+            return false;
+        }
+        if (id != other.id) {
             return false;
         }
         return true;

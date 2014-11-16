@@ -24,4 +24,11 @@ public class GenreDao {
                 .createNamedQuery(Genre.NAMED_QUERY_ALL, Genre.class)
                 .getResultList();
     }
+
+    public Genre findByName(String genre) {
+        return entityManager
+                .createNamedQuery(Genre.NAMED_QUERY_ONE, Genre.class)
+                .setParameter(1, genre)
+                .getSingleResult();
+    }
 }

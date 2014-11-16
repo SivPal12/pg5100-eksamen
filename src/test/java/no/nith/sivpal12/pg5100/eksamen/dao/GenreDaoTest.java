@@ -44,4 +44,22 @@ public class GenreDaoTest {
 
         assertEquals(expectedList, genreDao.getAllGenres());
     }
+
+    @Test
+    public void findByName_ValidGenre_CallsEntityManagerAndReturnsResult() {
+        final String genreName = "genre";
+        final Genre genre = new Genre();
+        genre.setGenre(genreName);
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Genre> mockTypedQuery = mock(TypedQuery.class);
+
+        when(
+                mockEntityManager.createNamedQuery(Genre.NAMED_QUERY_ONE,
+                        Genre.class)).thenReturn(mockTypedQuery);
+        when(mockTypedQuery.setParameter(1, genreName)).thenReturn(
+                mockTypedQuery);
+        when(mockTypedQuery.getSingleResult()).thenReturn(genre);
+
+        assertEquals(genre, genreDao.findByName(genreName));
+    }
 }
