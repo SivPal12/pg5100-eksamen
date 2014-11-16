@@ -25,7 +25,9 @@
             <h:message for="concertDate" />
 
             <h:outputLabel value="#{translation.concert_price}" />
-            <h:inputText id="concertPrice" value="#{concert.price}" />
+            <h:inputText id="concertPrice" value="#{concert.price}">
+                <f:convertNumber integerOnly="true" />
+            </h:inputText>
             <h:message for="concertPrice" />
 
             <h:outputLabel value="#{translation.concert_location}" />
@@ -37,7 +39,9 @@
             <h:message for="concertDesc" />
 
             <h:outputLabel value="#{translation.concert_total_tickets}" />
-            <h:inputText id="concertNumTickets" value="#{concert.numTickets}" />
+            <h:inputText id="concertNumTickets" value="#{concert.numTickets}">
+                <f:convertNumber integerOnly="true" />
+            </h:inputText>
             <h:message for="concertNumTickets" />
 
         </h:panelGrid>
