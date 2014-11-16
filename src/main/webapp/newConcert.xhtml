@@ -5,34 +5,40 @@
     <title>New concert</title>
 </h:head>
 <h:body>
-    <h:messages />
     <h:form>
-        <h:panelGrid columns="2">
+        <h:panelGrid columns="3">
             <h:outputLabel value="#{translation.concert_name}" />
-            <h:inputText value="#{concert.name}" />
+            <h:inputText id="concertName" value="#{concert.name}" />
+            <h:message for="concertName"/>
 
             <h:outputLabel value="#{translation.artist_name}" />
-            <h:selectOneMenu value="#{concert.artist}">
+            <h:selectOneMenu id="artist" value="#{concert.artist}">
                 <f:selectItems value="#{artistController.allArtists}" var="item" itemLabel="#{item.name}" />
                 <f:converter converterId="artistConverter" />
             </h:selectOneMenu>
+            <h:message for="artist"/>
 
             <h:outputLabel value="#{translation.concert_date}" />
-            <h:inputText value="#{concert.date}">
+            <h:inputText id="concertDate" value="#{concert.date}">
                 <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
             </h:inputText>
+            <h:message for="concertDate"/>
 
             <h:outputLabel value="#{translation.concert_price}" />
-            <h:inputText value="#{concert.price}" />
+            <h:inputText id="concertPrice" value="#{concert.price}" />
+            <h:message for="concertPrice"/>
 
             <h:outputLabel value="#{translation.concert_location}" />
-            <h:inputText value="#{concert.location}" />
+            <h:inputText id="concertLocation" value="#{concert.location}" />
+            <h:message for="concertLocation"/>
 
             <h:outputLabel value="#{translation.concert_location}" />
-            <h:inputText value="#{concert.description}" />
+            <h:inputText id="concertDesc" value="#{concert.description}" />
+            <h:message for="concertDesc"/>
 
             <h:outputLabel value="#{translation.concert_total_tickets}" />
-            <h:inputText value="#{concert.numTickets}" />
+            <h:inputText id="concertNumTickets" value="#{concert.numTickets}" />
+            <h:message for="concertNumTickets"/>
 
         </h:panelGrid>
         <h:commandButton value="#{translation.action_save}" action="#{concertController.save}" />
