@@ -88,6 +88,6 @@ public class ConcertControllerTest {
         concert.setNumTickets(9000);
         concert.setPrice(9001);
         concert.setTicketsSold(0);
-        return null;
+        return concert;
     }
 }

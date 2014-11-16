@@ -5,10 +5,13 @@ import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Pattern;
 
+import no.nith.sivpal12.pg5100.eksamen.constraints.UniqueConcertName;
 import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,11 +29,17 @@ public class ConcertController {
 
     private int id;
 
+    @UniqueConcertName
+    @NotEmpty
+    @Pattern(regexp = ".*\\S+.*",
+            message = "{org.hibernate.validator.constraints.NotEmpty.message}")
+    private String uniqueConcertName;
+
     public void save() {
-        // TODO Add date converter
+        concert.setName(uniqueConcertName);
         LOGGER.debug(String.format("Saving %s", concert));
         consertDao.save(concert);
-        initConcert();
+        initFields();
     }
 
     public void load() {
@@ -51,9 +60,18 @@ public class ConcertController {
         this.id = id;
     }
 
+    public String getUniqueConcertName() {
+        return uniqueConcertName;
+    }
+
+    public void setUniqueConcertName(String uniqueConcertName) {
+        this.uniqueConcertName = uniqueConcertName;
+    }
+
     @PostConstruct
-    private void initConcert() {
+    private void initFields() {
         concert = new Concert();
+        uniqueConcertName = "";
         LOGGER.trace("Created new concert");
     }
 
