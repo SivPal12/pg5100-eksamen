@@ -189,4 +189,15 @@ public class Concert {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return String
+                .format(
+                        "Concert {id=%s, artist=%s, date=%s, price=%s, "
+                                + "location=%s, description=%s, numTickets=%s, "
+                                + "ticketsSold=%s, name=%s}",
+                        id, artist, date, price, location, description,
+                        numTickets, ticketsSold, name);
+    }
 }

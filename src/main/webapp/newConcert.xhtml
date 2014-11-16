@@ -10,6 +10,8 @@
 </h:head>
 <h:body>
     <h:form>
+    <h:outputLabel value="Konsertnavn"></h:outputLabel>
+    <h:inputText value="#{concert.name}" />
     Artistnavn
     <h:selectOneMenu value="#{concert.artist}">
         <f:selectItems value="#{artistController.allArtists}" var="item" itemLabel="#{item.name}"  />
