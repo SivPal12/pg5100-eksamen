@@ -1,5 +1,6 @@
 package no.nith.sivpal12.pg5100.eksamen.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -38,5 +39,23 @@ public class ConcertDao  {
 
     public void remove(int id) {
         entityManager.remove(find(id));
+    }
+
+    public List<Concert> concertsFrom(Date from) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException(String.format("'%s' not yet implemented",
+                ConcertDao.class.getName()));
+    }
+
+    public List<Concert> concertsTo(Date to) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException(String.format("'%s' not yet implemented",
+                ConcertDao.class.getName()));
+    }
+
+    public List<Concert> concerts(Date from, Date to) {
+        // TODO Auto-generated method stub
+        throw new RuntimeException(String.format("'%s' not yet implemented",
+                ConcertDao.class.getName()));
     }
 }
