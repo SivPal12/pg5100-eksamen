@@ -53,9 +53,10 @@ public class ConcertDao  {
 
     public List<Concert> concertsTo(Date to) {
         LOGGER.trace(String.format("Getting concerts to '%s'", to));
-        // TODO Auto-generated method stub
-        throw new RuntimeException(String.format("'%s' not yet implemented",
-                ConcertDao.class.getName()));
+        return entityManager
+                .createNamedQuery(Concert.NAMED_QUERY_RANGE_TO, Concert.class)
+                .setParameter(1, DateUtils.addOneDay(to))
+                .getResultList();
     }
 
     /**

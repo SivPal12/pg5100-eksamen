@@ -30,6 +30,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ConcertDaoTest {
 
+    private static final int MILLIS_IN_A_DAY = 86400000;
+
     @Mock
     private EntityManager mockEntityManager;
 
@@ -101,7 +103,7 @@ public class ConcertDaoTest {
                 .thenReturn(mockTypedQuery);
 
         final Date to = new Date();
-        final Date toDatePlusOneDay = new Date(to.getTime() + 86400000);
+        final Date toDatePlusOneDay = new Date(to.getTime() + MILLIS_IN_A_DAY);
         assertEquals(expectedList, concertDao.concerts(new Date(), to));
 
         verify(mockTypedQuery).setParameter(2, toDatePlusOneDay);
@@ -126,6 +128,28 @@ public class ConcertDaoTest {
 
         verify(mockEntityManager).createNamedQuery(
                 Concert.NAMED_QUERY_RANGE_FROM, Concert.class);
+    }
+
+    @Test
+    public void concertsTo_ValidDate_AddsOneDayAndReturnsExpectedList() {
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
+        List<Concert> expectedList = new ArrayList<>();
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+
+        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
+        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
+                .thenReturn(mockTypedQuery);
+        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
+                .thenReturn(mockTypedQuery);
+
+        assertEquals(expectedList, concertDao.concertsTo(new Date(0)));
+
+        verify(mockTypedQuery).setParameter(1, new Date(MILLIS_IN_A_DAY));
+        verify(mockEntityManager).createNamedQuery(
+                Concert.NAMED_QUERY_RANGE_TO, Concert.class);
     }
 
     private static Concert validConcert() {
