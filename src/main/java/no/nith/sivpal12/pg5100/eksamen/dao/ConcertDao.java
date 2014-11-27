@@ -65,8 +65,8 @@ public class ConcertDao  {
     public List<Concert> concerts(final Date from, final Date to) {
         final Date datePlusOne = DateUtils.addOneDay(to);
         LOGGER.trace(String
-                .format("Getting concerts from '%s' to '%s'", from,
-                        datePlusOne));
+                .format("Getting concerts from '%s' to '%s'",
+                        from, datePlusOne));
         return entityManager
                 .createNamedQuery(Concert.NAMED_QUERY_RANGE_FULL, Concert.class)
                 .setParameter(1, from)

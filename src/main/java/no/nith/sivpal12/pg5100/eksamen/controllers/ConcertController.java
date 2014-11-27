@@ -58,11 +58,7 @@ public class ConcertController {
         if (from != null) {
             return concertDao.concertsFrom(from);
         }
-        if (to != null) {
-            return concertDao.concertsTo(to);
-        }
-        // TODO Refactor and implemented
-        throw new RuntimeException("not yet implemented");
+        return concertDao.concertsTo(to);
     }
 
     public void save() {
