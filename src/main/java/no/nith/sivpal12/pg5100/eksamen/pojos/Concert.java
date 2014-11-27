@@ -15,8 +15,6 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Entity
 @NamedQueries({
@@ -31,16 +29,17 @@ import org.slf4j.LoggerFactory;
         @NamedQuery(
                 name = Concert.NAMED_QUERY_RANGE_FULL,
                 query = "SELECT c FROM Concert c WHERE c.date >= ?1 AND c.date < ?2"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_RANGE_FROM,
+                query = "SELECT c FROM Concert c WHERE c.date >= ?1"
         )
 })
 public class Concert {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Concert.class);
-
     public static final String NAMED_QUERY_ALL = "all-concerts";
-
     public static final String NAMED_QUERY_BY_NAME = "concert-by-name";
-
     public static final String NAMED_QUERY_RANGE_FULL = "range-full";
+    public static final String NAMED_QUERY_RANGE_FROM = "range-from";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
