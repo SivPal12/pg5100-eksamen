@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,8 +30,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ConcertDaoTest {
-
-    private static final int MILLIS_IN_A_DAY = 86400000;
 
     @Mock
     private EntityManager mockEntityManager;
@@ -103,7 +102,8 @@ public class ConcertDaoTest {
                 .thenReturn(mockTypedQuery);
 
         final Date to = new Date();
-        final Date toDatePlusOneDay = new Date(to.getTime() + MILLIS_IN_A_DAY);
+        final Date toDatePlusOneDay = new Date(to.getTime()
+                + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
         assertEquals(expectedList, concertDao.concerts(new Date(), to));
 
         verify(mockTypedQuery).setParameter(2, toDatePlusOneDay);
@@ -147,7 +147,8 @@ public class ConcertDaoTest {
 
         assertEquals(expectedList, concertDao.concertsTo(new Date(0)));
 
-        verify(mockTypedQuery).setParameter(1, new Date(MILLIS_IN_A_DAY));
+        verify(mockTypedQuery).setParameter(1,
+                new Date(TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)));
         verify(mockEntityManager).createNamedQuery(
                 Concert.NAMED_QUERY_RANGE_TO, Concert.class);
     }
