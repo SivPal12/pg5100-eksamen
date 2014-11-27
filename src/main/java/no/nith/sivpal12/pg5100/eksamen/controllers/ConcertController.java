@@ -52,13 +52,17 @@ public class ConcertController {
         if (from == null && to == null) {
             return concertDao.allConcerts();
         }
+        if (from != null && to != null) {
+            return concertDao.concerts(from, to);
+        }
         if (from != null) {
             return concertDao.concertsFrom(from);
         }
         if (to != null) {
             return concertDao.concertsTo(to);
         }
-        return concertDao.concerts(from, to);
+        // TODO Refactor and implemented
+        throw new RuntimeException("not yet implemented");
     }
 
     public void save() {

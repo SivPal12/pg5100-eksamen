@@ -27,6 +27,10 @@ import org.slf4j.LoggerFactory;
         @NamedQuery(
                 name = Concert.NAMED_QUERY_BY_NAME,
                 query = "SELECT c FROM Concert c WHERE c.name = ?1"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_RANGE_FULL,
+                query = "SELECT c FROM Concert c WHERE c.date >= ?1 AND c.date < ?2"
         )
 })
 public class Concert {
@@ -35,6 +39,8 @@ public class Concert {
     public static final String NAMED_QUERY_ALL = "all-concerts";
 
     public static final String NAMED_QUERY_BY_NAME = "concert-by-name";
+
+    public static final String NAMED_QUERY_RANGE_FULL = "range-full";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
