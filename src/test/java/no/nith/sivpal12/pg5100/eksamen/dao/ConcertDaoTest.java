@@ -1,6 +1,8 @@
 package no.nith.sivpal12.pg5100.eksamen.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -77,6 +79,30 @@ public class ConcertDaoTest {
         concertDao.remove(randId);
 
         verify(mockEntityManager).remove(concert);
+    }
+
+    @Test
+    public void concerts_ValidDates_AddsOneDayAndCallsEntityManager() {
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
+        final List<Concert> expectedList = new ArrayList<>();
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+
+        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
+        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
+                .thenReturn(mockTypedQuery);
+        when(
+                mockEntityManager.createNamedQuery(
+                        Concert.NAMED_QUERY_RANGE_FULL, Concert.class))
+                .thenReturn(mockTypedQuery);
+
+        final Date to = new Date();
+        final Date toDatePlusOneDay = new Date(to.getTime() + 86400000);
+        assertEquals(expectedList, concertDao.concerts(new Date(), to));
+
+        verify(mockTypedQuery).setParameter(2, toDatePlusOneDay);
     }
 
     private static Concert validConcert() {
