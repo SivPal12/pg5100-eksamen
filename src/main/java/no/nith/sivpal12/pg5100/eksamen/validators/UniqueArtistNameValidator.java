@@ -9,14 +9,9 @@ import javax.validation.ConstraintValidatorContext;
 import no.nith.sivpal12.pg5100.eksamen.constraints.UniqueArtistName;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Stateless
 public class UniqueArtistNameValidator implements
         ConstraintValidator<UniqueArtistName, String> {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(UniqueArtistNameValidator.class);
 
     @PersistenceContext(unitName = "myManager")
     private EntityManager entityManager;
