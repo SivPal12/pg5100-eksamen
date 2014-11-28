@@ -1,5 +1,8 @@
 package no.nith.sivpal12.pg5100.eksamen.controllers;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
@@ -21,13 +24,15 @@ public class ConcertController {
             .getLogger(ConcertController.class);
 
     @Inject
-    private ConcertDao consertDao;
+    private ConcertDao concertDao;
 
     @Produces
     @Named
     private Concert concert;
 
     private int id;
+    private Date from;
+    private Date to;
 
     @UniqueConcertName
     @NotEmpty
@@ -35,21 +40,42 @@ public class ConcertController {
             message = "{org.hibernate.validator.constraints.NotEmpty.message}")
     private String uniqueConcertName;
 
+    public void clearDates() {
+        from = null;
+        to = null;
+    }
+
+    @Named
+    @Produces
+    public List<Concert> filteredConcerts() {
+        LOGGER.trace(String.format("Getting concerts from %s to %s", from, to));
+        if (from == null && to == null) {
+            return concertDao.allConcerts();
+        }
+        if (from != null && to != null) {
+            return concertDao.concerts(from, to);
+        }
+        if (from != null) {
+            return concertDao.concertsFrom(from);
+        }
+        return concertDao.concertsTo(to);
+    }
+
     public void save() {
         concert.setName(uniqueConcertName);
         LOGGER.debug(String.format("Saving %s", concert));
-        consertDao.save(concert);
+        concertDao.save(concert);
         initFields();
     }
 
     public void load() {
         LOGGER.trace(String.format("Loading consert with id '%d'", getId()));
-        concert = consertDao.find(getId());
+        concert = concertDao.find(getId());
     }
 
     public void remove(int id) {
         LOGGER.trace(String.format("Removing concert with id '%d'", id));
-        consertDao.remove(id);
+        concertDao.remove(id);
     }
 
     public int getId() {
@@ -68,11 +94,29 @@ public class ConcertController {
         this.uniqueConcertName = uniqueConcertName;
     }
 
+    public Date getFrom() {
+        return from;
+    }
+
+    public void setFrom(Date from) {
+        LOGGER.trace(String.format("Set from: %s", from));
+        this.from = from;
+    }
+
+    public Date getTo() {
+        return to;
+    }
+
+    public void setTo(Date to) {
+        LOGGER.trace(String.format("Set to: %s", to));
+        this.to = to;
+    }
+
     @PostConstruct
     private void initFields() {
         concert = new Concert();
         uniqueConcertName = "";
-        LOGGER.trace("Created new concert");
+        clearDates();
     }
 
 }

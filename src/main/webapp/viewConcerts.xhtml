@@ -6,7 +6,25 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:dataTable value="#{allConcerts}" var="currentConcert">
+        <h:panelGrid columns="3">
+            <h:outputLabel value="#{translation.concert_date_from}" />
+            <h:inputText id="concertFromDate" value="#{concertController.from}">
+                <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+            </h:inputText>
+            <h:message for="concertFromDate" />
+
+            <h:outputLabel value="#{translation.concert_date_to}" />
+            <h:inputText id="concertToDate" value="#{concertController.to}">
+                <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+            </h:inputText>
+            <h:message for="concertToDate" />
+        </h:panelGrid>
+        <h:commandButton value="#{translation.action_update}" />
+        <h:commandButton value="#{translation.action_clear}" action="#{concertController.clearDates}"></h:commandButton>
+    </h:form>
+
+    <h:form>
+        <h:dataTable value="#{filteredConcerts}" var="currentConcert">
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="#{translation.concert_name}" />
@@ -21,6 +39,15 @@
                     <h:outputText value="#{translation.artist_name}" />
                 </f:facet>
                 <h:outputText value="#{currentConcert.artist.name}"></h:outputText>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="#{translation.concert_date}" />
+                </f:facet>
+                <h:outputText value="#{currentConcert.date}">
+                    <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+                </h:outputText>
             </h:column>
 
             <h:column>
