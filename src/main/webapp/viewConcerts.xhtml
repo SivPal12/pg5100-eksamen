@@ -1,28 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <meta charset="UTF-8" />
     <title>View concerts</title>
 </h:head>
 <h:body>
     <h:form>
-        <h:dataTable value="#{allConcerts}" var="item">
+        <h:panelGrid columns="3">
+            <h:outputLabel value="#{translation.concert_date_from}" />
+            <h:inputText id="concertFromDate" value="#{concertController.from}">
+                <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+            </h:inputText>
+            <h:message for="concertFromDate" />
+
+            <h:outputLabel value="#{translation.concert_date_to}" />
+            <h:inputText id="concertToDate" value="#{concertController.to}">
+                <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+            </h:inputText>
+            <h:message for="concertToDate" />
+        </h:panelGrid>
+        <h:commandButton value="#{translation.action_update}" />
+        <h:commandButton value="#{translation.action_clear}" action="#{concertController.clearDates}"></h:commandButton>
+    </h:form>
+
+    <h:form>
+        <h:dataTable value="#{filteredConcerts}" var="currentConcert">
             <h:column>
-                <f:facet name="header">Konsertnavn</f:facet>
-                <h:link value="#{item.name}" outcome="viewConcert" includeViewParams="true">
-                    <f:param name="id" value="#{item.id}" />
+                <f:facet name="header">
+                    <h:outputText value="#{translation.concert_name}" />
+                </f:facet>
+                <h:link value="#{currentConcert.name}" outcome="viewConcert" includeViewParams="true">
+                    <f:param name="id" value="#{currentConcert.id}" />
                 </h:link>
             </h:column>
+
             <h:column>
-                <f:facet name="header">Artistnavn</f:facet>
-                <h:outputText value="#{item.artist.name}"></h:outputText>
+                <f:facet name="header">
+                    <h:outputText value="#{translation.artist_name}" />
+                </f:facet>
+                <h:outputText value="#{currentConcert.artist.name}"></h:outputText>
             </h:column>
+
             <h:column>
-                <h:commandButton value="Slett" action="#{concertController.remove(item.id)}"/>
+                <f:facet name="header">
+                    <h:outputText value="#{translation.concert_date}" />
+                </f:facet>
+                <h:outputText value="#{currentConcert.date}">
+                    <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+                </h:outputText>
+            </h:column>
+
+            <h:column>
+                <h:commandButton value="#{translation.action_delete}" action="#{concertController.remove(currentConcert.id)}" />
             </h:column>
         </h:dataTable>
     </h:form>

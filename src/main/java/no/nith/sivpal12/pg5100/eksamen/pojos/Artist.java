@@ -1,5 +1,6 @@
 package no.nith.sivpal12.pg5100.eksamen.pojos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @NamedQueries({
@@ -29,7 +33,10 @@ public class Artist {
     private int id;
 
     @ManyToOne
+    @NotNull
     private Genre genre;
+    @NotEmpty
+    @Column(unique = true, nullable = false)
     private String name;
 
     @Override

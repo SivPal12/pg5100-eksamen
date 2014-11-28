@@ -1,6 +1,10 @@
 package no.nith.sivpal12.pg5100.eksamen.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -77,6 +82,75 @@ public class ConcertDaoTest {
         concertDao.remove(randId);
 
         verify(mockEntityManager).remove(concert);
+    }
+
+    @Test
+    public void concerts_ValidDates_AddsOneDayAndCallsEntityManager() {
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
+        final List<Concert> expectedList = new ArrayList<>();
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+
+        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
+        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
+                .thenReturn(mockTypedQuery);
+        when(
+                mockEntityManager.createNamedQuery(
+                        Concert.NAMED_QUERY_RANGE_FULL, Concert.class))
+                .thenReturn(mockTypedQuery);
+
+        final Date to = new Date();
+        final Date toDatePlusOneDay = new Date(to.getTime()
+                + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+        assertEquals(expectedList, concertDao.concerts(new Date(), to));
+
+        verify(mockTypedQuery).setParameter(2, toDatePlusOneDay);
+    }
+
+    @Test
+    public void concertsFrom_ValidDate_ReturnsExpectedList() {
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
+        List<Concert> expectedList = new ArrayList<>();
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+
+        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
+        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
+                .thenReturn(mockTypedQuery);
+        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
+                .thenReturn(mockTypedQuery);
+
+        assertEquals(expectedList, concertDao.concertsFrom(new Date()));
+
+        verify(mockEntityManager).createNamedQuery(
+                Concert.NAMED_QUERY_RANGE_FROM, Concert.class);
+    }
+
+    @Test
+    public void concertsTo_ValidDate_AddsOneDayAndReturnsExpectedList() {
+        @SuppressWarnings("unchecked")
+        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
+        List<Concert> expectedList = new ArrayList<>();
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+        expectedList.add(mock(Concert.class));
+
+        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
+        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
+                .thenReturn(mockTypedQuery);
+        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
+                .thenReturn(mockTypedQuery);
+
+        assertEquals(expectedList, concertDao.concertsTo(new Date(0)));
+
+        verify(mockTypedQuery).setParameter(1,
+                new Date(TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)));
+        verify(mockEntityManager).createNamedQuery(
+                Concert.NAMED_QUERY_RANGE_TO, Concert.class);
     }
 
     private static Concert validConcert() {

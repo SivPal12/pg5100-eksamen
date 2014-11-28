@@ -2,6 +2,7 @@ package no.nith.sivpal12.pg5100.eksamen.pojos;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,33 +10,62 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @NamedQueries({
         @NamedQuery(
                 name = Concert.NAMED_QUERY_ALL,
                 query = "SELECT c FROM Concert c"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_BY_NAME,
+                query = "SELECT c FROM Concert c WHERE c.name = ?1"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_RANGE_FULL,
+                query = "SELECT c FROM Concert c WHERE c.date >= ?1 AND c.date < ?2"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_RANGE_FROM,
+                query = "SELECT c FROM Concert c WHERE c.date >= ?1"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_RANGE_TO,
+                query = "SELECT c FROM Concert c WHERE c.date < ?1"
         )
 })
 public class Concert {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Concert.class);
-
     public static final String NAMED_QUERY_ALL = "all-concerts";
+    public static final String NAMED_QUERY_BY_NAME = "concert-by-name";
+    public static final String NAMED_QUERY_RANGE_FULL = "range-full";
+    public static final String NAMED_QUERY_RANGE_FROM = "range-from";
+    public static final String NAMED_QUERY_RANGE_TO = "range-to";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @OneToOne
+    @NotNull
     private Artist artist;
+    @Future
+    @NotNull
     private Date date;
+    @DecimalMin(value = "1")
     private int price;
+    @NotEmpty
     private String location;
+    @NotEmpty
     private String description;
+    @DecimalMin(value = "1")
     private int numTickets;
     private int ticketsSold;
+    @NotEmpty
+    @Column(nullable = false, unique = true)
     private String name;
 
     public int getId() {

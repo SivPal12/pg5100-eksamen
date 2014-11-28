@@ -2,10 +2,13 @@ package no.nith.sivpal12.pg5100.eksamen.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
@@ -31,10 +34,16 @@ public class ConcertControllerTest {
     private ConcertController concertController;
 
     private Concert validConcert;
+    private List<Concert> listOfConcerts;
 
     @Before
     public void before() {
         validConcert = validConcert();
+        listOfConcerts = new ArrayList<>();
+        listOfConcerts.add(mock(Concert.class));
+        listOfConcerts.add(mock(Concert.class));
+        listOfConcerts.add(mock(Concert.class));
+        listOfConcerts.add(mock(Concert.class));
     }
 
     @Test
@@ -71,6 +80,60 @@ public class ConcertControllerTest {
         verify(mockConcertDao).remove(randId);
     }
 
+    @Test
+    public void filteredConcerts_FromToNull_CallsAllConcertsReturnsResult() {
+        concertController.setFrom(null);
+        concertController.setTo(null);
+
+        when(mockConcertDao.allConcerts()).thenReturn(listOfConcerts);
+
+        assertEquals(listOfConcerts, concertController.filteredConcerts());
+
+        verify(mockConcertDao).allConcerts();
+    }
+
+    @Test
+    public void filteredConcerts_FromNotNullToNotNull_CallsConcertsFromToReturnsResult() {
+        Date from = new Date();
+        Date to = new Date();
+        concertController.setFrom(from);
+        concertController.setTo(to);
+
+        when(mockConcertDao.concerts(from, to)).thenReturn(listOfConcerts);
+
+        assertEquals(listOfConcerts, concertController.filteredConcerts());
+
+        verify(mockConcertDao).concerts(from, to);
+    }
+
+    @Test
+    public void filteredConcerts_FromNullToNotNull_CallsConcertsToReturnsResult() {
+        Date from = null;
+        Date to = new Date();
+        concertController.setFrom(from);
+        concertController.setTo(to);
+
+        when(mockConcertDao.concertsTo(to)).thenReturn(listOfConcerts);
+
+        assertEquals(listOfConcerts, concertController.filteredConcerts());
+
+        verify(mockConcertDao).concertsTo(to);
+    }
+
+    @Test
+    public void filteredConcerts_FromNotNullToNull_CallsConcertsFromReturnsResult() {
+        Date from = new Date();
+        Date to = null;
+        concertController.setFrom(from);
+        concertController.setTo(to);
+
+        when(mockConcertDao.concertsFrom(from)).thenReturn(listOfConcerts);
+
+        assertEquals(listOfConcerts, concertController.filteredConcerts());
+
+        verify(mockConcertDao).concertsFrom(from);
+    }
+
     private static Concert validConcert() {
         final Concert concert = new Concert();
         final Artist artist = new Artist();
@@ -88,6 +151,6 @@ public class ConcertControllerTest {
         concert.setNumTickets(9000);
         concert.setPrice(9001);
         concert.setTicketsSold(0);
-        return null;
+        return concert;
     }
 }
