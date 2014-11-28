@@ -28,9 +28,14 @@ public class UniqueConcertNameValidator implements
     @Override
     public boolean isValid(String concertName,
             ConstraintValidatorContext context) {
-        return entityManager
-                .createNamedQuery(Concert.NAMED_QUERY_BY_NAME, Concert.class)
-                .setParameter(1, concertName)
-                .getResultList().isEmpty();
+        boolean isValid = entityManager
+                        .createNamedQuery(Concert.NAMED_QUERY_BY_NAME, Concert.class)
+                        .setParameter(1, concertName)
+                        .getResultList().isEmpty();
+        if (!isValid) {
+            LOGGER.debug(String.format("Concert name '%s' is not unique!",
+                    concertName));
+        }
+        return isValid;
     }
 }
