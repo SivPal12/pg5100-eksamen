@@ -6,13 +6,18 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
 import no.nith.sivpal12.pg5100.eksamen.constraints.UniqueConcertName;
 import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
+import no.nith.sivpal12.pg5100.eksamen.enums.ReserveTicketsResult;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
+import no.nith.sivpal12.pg5100.eksamen.services.TicketReserver;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
@@ -25,6 +30,8 @@ public class ConcertController {
 
     @Inject
     private ConcertDao concertDao;
+    @Inject
+    private TicketReserver ticketReserver;
 
     @Produces
     @Named
@@ -33,6 +40,8 @@ public class ConcertController {
     private int id;
     private Date from;
     private Date to;
+    @Min(value = 0)
+    private int numTicketsToReserve;
 
     @UniqueConcertName
     @NotEmpty
@@ -78,6 +87,38 @@ public class ConcertController {
         concertDao.remove(id);
     }
 
+    public void doReserveTickets() {
+        LOGGER.trace(String.format("Reserving %d tickets",
+                getNumTicketsToReserve()));
+
+        ReserveTicketsResult result = ticketReserver
+                .reserveTickets(id, numTicketsToReserve);
+
+        // TODO Find out how to test
+        switch (result) {
+            case RESERVED:
+                setViewMessage(String.format("Reserved %d tickets.",
+                        numTicketsToReserve));
+                break;
+
+            case NO_TICKETS_AVAILABLE:
+                setViewMessage("No tickets avaliable");
+                break;
+
+            default:
+                LOGGER.error(String
+                        .format("Enum '%s' not implemented!", result.name()));
+                setViewMessage("Unknown error");
+        }
+    }
+
+    private void setViewMessage(String message) {
+        // Can't inject FacesContext :/
+        FacesContext
+                .getCurrentInstance()
+                .addMessage(null, new FacesMessage(message));
+    }
+
     public int getId() {
         return id;
     }
@@ -110,6 +151,14 @@ public class ConcertController {
     public void setTo(Date to) {
         LOGGER.trace(String.format("Set to: %s", to));
         this.to = to;
+    }
+
+    public int getNumTicketsToReserve() {
+        return numTicketsToReserve;
+    }
+
+    public void setNumTicketsToReserve(int numTicketsToReserve) {
+        this.numTicketsToReserve = numTicketsToReserve;
     }
 
     @PostConstruct
