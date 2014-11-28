@@ -32,6 +32,9 @@
 
         <h:outputLabel value="#{translation.concert_tickets_sold}" />
         <h:outputText value="#{concert.ticketsSold}" />
+
+        <h:outputLabel value="#{translation.concert_tickets_available}" />
+        <h:outputText value="#{concert.numTickets - concert.ticketsSold}" />
     </h:panelGrid>
 </h:body>
 </html>
