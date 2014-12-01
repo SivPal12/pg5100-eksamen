@@ -18,6 +18,7 @@ import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
 import no.nith.sivpal12.pg5100.eksamen.enums.ReserveTicketsResult;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
 import no.nith.sivpal12.pg5100.eksamen.services.TicketReserver;
+import no.nith.sivpal12.pg5100.eksamen.session.Session;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
@@ -32,6 +33,8 @@ public class ConcertController {
     private ConcertDao concertDao;
     @Inject
     private TicketReserver ticketReserver;
+    @Inject
+    private Session session;
 
     @Produces
     @Named
@@ -99,6 +102,7 @@ public class ConcertController {
             case RESERVED:
                 setViewMessage(String.format("Reserved %d tickets.",
                         numTicketsToReserve));
+                concert = concertDao.find(id);
                 break;
 
             case NO_TICKETS_AVAILABLE:
@@ -125,6 +129,7 @@ public class ConcertController {
 
     public void setId(int id) {
         this.id = id;
+        session.setCurrentConcertId(id);
     }
 
     public String getUniqueConcertName() {
@@ -163,7 +168,10 @@ public class ConcertController {
 
     @PostConstruct
     private void initFields() {
-        concert = new Concert();
+        if (id <= 0) {
+            id = session.getCurrentConcertId();
+        }
+        concert = concertDao.find(id);
         uniqueConcertName = "";
         clearDates();
     }
