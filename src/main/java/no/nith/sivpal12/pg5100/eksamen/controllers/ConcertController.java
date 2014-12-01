@@ -40,7 +40,7 @@ public class ConcertController {
     private int id;
     private Date from;
     private Date to;
-    @Min(value = 0)
+    @Min(value = 1)
     private int numTicketsToReserve;
 
     @UniqueConcertName
