@@ -35,6 +35,8 @@ public class ConcertController {
     private TicketReserver ticketReserver;
     @Inject
     private Session session;
+    @Inject
+    private FacesContext facesContext;
 
     @Produces
     @Named
@@ -117,10 +119,7 @@ public class ConcertController {
     }
 
     private void setViewMessage(String message) {
-        // Can't inject FacesContext :/
-        FacesContext
-                .getCurrentInstance()
-                .addMessage(null, new FacesMessage(message));
+        facesContext.addMessage(null, new FacesMessage(message));
     }
 
     public int getId() {
