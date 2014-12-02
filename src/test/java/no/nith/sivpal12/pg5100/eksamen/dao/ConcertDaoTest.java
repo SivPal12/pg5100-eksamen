@@ -137,10 +137,17 @@ public class ConcertDaoTest {
 
     @Test
     public void getTopConcerts_CallsEntityManager_ReturnsResult() {
+        final int numberOfConcerts = 5;
+
         when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
-        assertEquals(uniqueConcertList, concertDao.getTopConcerts());
+        when(mockTypedQuery.setMaxResults(anyInt())).thenReturn(mockTypedQuery);
+
+        assertEquals(uniqueConcertList,
+                concertDao.getTopConcerts(numberOfConcerts));
+
         verify(mockEntityManager)
-                .createNamedQuery(Concert.NAMED_QUERY_TOP_FIVE, Concert.class);
+                .createNamedQuery(Concert.NAMED_QUERY_ORDER_BY_TOP_CONCERTS, Concert.class);
+        verify(mockTypedQuery).setMaxResults(numberOfConcerts);
     }
 
     private static Concert validConcert() {

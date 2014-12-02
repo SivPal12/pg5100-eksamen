@@ -77,8 +77,8 @@ public class ConcertController {
 
     @Named
     @Produces
-    public List<Concert> topConcerts() {
-        return concertDao.getTopConcerts();
+    public List<Concert> topFiveConcerts() {
+        return concertDao.getTopConcerts(5);
     }
 
     public void save() {

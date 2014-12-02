@@ -37,6 +37,10 @@ import org.hibernate.validator.constraints.NotEmpty;
         @NamedQuery(
                 name = Concert.NAMED_QUERY_RANGE_TO,
                 query = "SELECT c FROM Concert c WHERE c.date < ?1"
+        ),
+        @NamedQuery(
+                name = Concert.NAMED_QUERY_ORDER_BY_TOP_CONCERTS,
+                query = "SELECT c FROM Concert c ORDER BY c.ticketsSold DESC"
         )
 })
 public class Concert {
@@ -45,8 +49,7 @@ public class Concert {
     public static final String NAMED_QUERY_RANGE_FULL = "range-full";
     public static final String NAMED_QUERY_RANGE_FROM = "range-from";
     public static final String NAMED_QUERY_RANGE_TO = "range-to";
-    // TODO Implement
-    public static final String NAMED_QUERY_TOP_FIVE = "top-five";
+    public static final String NAMED_QUERY_ORDER_BY_TOP_CONCERTS = "top-concerts";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
