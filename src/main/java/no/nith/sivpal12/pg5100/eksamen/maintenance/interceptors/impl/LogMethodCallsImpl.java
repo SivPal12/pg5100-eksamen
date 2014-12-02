@@ -25,7 +25,7 @@ public class LogMethodCallsImpl {
             for (Object param : ctx.getParameters()) {
                 params.add(param.toString());
             }
-            LOGGER.trace(
+            LOGGER.info(
                     String.format(
                             "Method '%s' was called with parameters %s",
                             ctx.getMethod().getDeclaringClass().getName() + "."
