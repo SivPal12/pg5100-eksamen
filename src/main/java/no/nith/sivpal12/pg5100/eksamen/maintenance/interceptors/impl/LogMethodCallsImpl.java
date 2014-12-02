@@ -1,17 +1,22 @@
-package no.nith.sivpal12.pg5100.eksamen.maintenance;
+package no.nith.sivpal12.pg5100.eksamen.maintenance.interceptors.impl;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+
+import no.nith.sivpal12.pg5100.eksamen.maintenance.interceptors.LogMethodCalls;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ValueLoggerInterceptor {
+@Interceptor
+@LogMethodCalls
+public class LogMethodCallsImpl {
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(ValueLoggerInterceptor.class);
+            .getLogger(LogMethodCallsImpl.class);
 
     @AroundInvoke
     public Object logValues(InvocationContext ctx) throws Exception {

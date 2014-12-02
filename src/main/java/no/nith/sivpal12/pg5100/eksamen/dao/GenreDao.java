@@ -6,12 +6,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import no.nith.sivpal12.pg5100.eksamen.maintenance.interceptors.LogMethodCalls;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Genre;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Stateless
+@LogMethodCalls
 public class GenreDao {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(GenreDao.class);
