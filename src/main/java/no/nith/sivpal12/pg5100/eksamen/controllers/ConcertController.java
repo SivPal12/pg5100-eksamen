@@ -75,6 +75,12 @@ public class ConcertController {
         return concertDao.concertsTo(to);
     }
 
+    @Named
+    @Produces
+    public List<Concert> topConcerts() {
+        return concertDao.getTopConcerts();
+    }
+
     public void save() {
         concert.setName(uniqueConcertName);
         LOGGER.debug(String.format("Saving %s", concert));

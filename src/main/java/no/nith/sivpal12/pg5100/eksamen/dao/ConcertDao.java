@@ -75,4 +75,10 @@ public class ConcertDao  {
                 .setParameter(2, datePlusOne)
                 .getResultList();
     }
+
+    public List<Concert> getTopConcerts() {
+        // TODO Auto-generated method stub
+        throw new RuntimeException(String.format("'%s' not yet implemented",
+                ConcertDao.class.getName()));
+    }
 }
