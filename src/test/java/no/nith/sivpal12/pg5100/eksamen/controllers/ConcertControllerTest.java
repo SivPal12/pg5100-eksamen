@@ -2,6 +2,7 @@ package no.nith.sivpal12.pg5100.eksamen.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,10 +12,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.faces.context.FacesContext;
+
 import no.nith.sivpal12.pg5100.eksamen.dao.ConcertDao;
+import no.nith.sivpal12.pg5100.eksamen.enums.ReserveTicketsResult;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Genre;
+import no.nith.sivpal12.pg5100.eksamen.services.TicketReserver;
+import no.nith.sivpal12.pg5100.eksamen.session.Session;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +35,12 @@ public class ConcertControllerTest {
 
     @Mock
     private ConcertDao mockConcertDao;
+    @Mock
+    private Session mockSession;
+    @Mock
+    private TicketReserver mockTicketReserver;
+    @Mock
+    private FacesContext mockFacesContext;
 
     @InjectMocks
     private ConcertController concertController;
@@ -56,7 +68,7 @@ public class ConcertControllerTest {
     }
 
     @Test
-    public void load_CallsDAoWithId_NewConcertIsSet() {
+    public void load_CallsDaoWithId_NewConcertIsSet() {
         assertNull(Whitebox.getInternalState(concertController, "concert"));
         final int rand = new Random().nextInt();
 
@@ -132,6 +144,24 @@ public class ConcertControllerTest {
         assertEquals(listOfConcerts, concertController.filteredConcerts());
 
         verify(mockConcertDao).concertsFrom(from);
+    }
+
+    @Test
+    public void doReserveTickets_TicketsReserved_SetsNewConcert() {
+        final Concert expectedConcert = mock(Concert.class);
+        final int id = new Random().nextInt(Integer.MAX_VALUE);
+
+        concertController.setId(id);
+        when(mockConcertDao.find(id)).thenReturn(expectedConcert);
+        when(mockTicketReserver.reserveTickets(anyInt(), anyInt()))
+                .thenReturn(ReserveTicketsResult.RESERVED);
+
+        concertController.doReserveTickets();
+
+        final Concert acturalConcert = (Concert) Whitebox
+                .getInternalState(concertController, "concert");
+
+        assertEquals(expectedConcert, acturalConcert);
     }
 
     private static Concert validConcert() {
