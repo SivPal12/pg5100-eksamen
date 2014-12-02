@@ -75,4 +75,12 @@ public class ConcertDao  {
                 .setParameter(2, datePlusOne)
                 .getResultList();
     }
+
+    public List<Concert> getTopConcerts(int numberOfConcerts) {
+        return entityManager
+                .createNamedQuery(Concert.NAMED_QUERY_ORDER_BY_TOP_CONCERTS,
+                        Concert.class)
+                .setMaxResults(numberOfConcerts)
+                .getResultList();
+    }
 }

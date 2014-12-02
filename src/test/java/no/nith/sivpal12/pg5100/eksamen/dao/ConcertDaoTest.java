@@ -22,6 +22,7 @@ import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Concert;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Genre;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,9 +34,26 @@ public class ConcertDaoTest {
 
     @Mock
     private EntityManager mockEntityManager;
+    @Mock
+    private TypedQuery<Concert> mockTypedQuery;
 
     @InjectMocks
     private ConcertDao concertDao;
+
+    private List<Concert> uniqueConcertList;
+
+    @Before
+    public void before() throws Exception {
+        uniqueConcertList = new ArrayList<>();
+        uniqueConcertList.add(mock(Concert.class));
+        uniqueConcertList.add(mock(Concert.class));
+        uniqueConcertList.add(mock(Concert.class));
+
+        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
+                .thenReturn(mockTypedQuery);
+        when(mockTypedQuery.setParameter(anyInt(), any()))
+                .thenReturn(mockTypedQuery);
+    }
 
     @Test
     public void save_ValidConcert_ConcertFoundInEntityManager() {
@@ -47,16 +65,13 @@ public class ConcertDaoTest {
 
     @Test
     public void allConcerts_CallsEntityManager_ReturnsAllItems() {
-        @SuppressWarnings("unchecked")
-        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
         List<Concert> expectedList = new ArrayList<>();
 
         when(mockTypedQuery.getResultList()).thenReturn(expectedList);
-        when(
-                mockEntityManager.createNamedQuery(Concert.NAMED_QUERY_ALL,
-                        Concert.class)).thenReturn(mockTypedQuery);
 
         assertEquals(expectedList, concertDao.allConcerts());
+        verify(mockEntityManager).createNamedQuery(Concert.NAMED_QUERY_ALL,
+                Concert.class);
     }
 
     @Test
@@ -86,45 +101,23 @@ public class ConcertDaoTest {
 
     @Test
     public void concerts_ValidDates_AddsOneDayAndCallsEntityManager() {
-        @SuppressWarnings("unchecked")
-        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
-        final List<Concert> expectedList = new ArrayList<>();
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
-
-        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
-        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
-                .thenReturn(mockTypedQuery);
-        when(
-                mockEntityManager.createNamedQuery(
-                        Concert.NAMED_QUERY_RANGE_FULL, Concert.class))
-                .thenReturn(mockTypedQuery);
+        when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
 
         final Date to = new Date();
         final Date toDatePlusOneDay = new Date(to.getTime()
                 + TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
-        assertEquals(expectedList, concertDao.concerts(new Date(), to));
+        assertEquals(uniqueConcertList, concertDao.concerts(new Date(), to));
 
         verify(mockTypedQuery).setParameter(2, toDatePlusOneDay);
+        verify(mockEntityManager).createNamedQuery(
+                Concert.NAMED_QUERY_RANGE_FULL, Concert.class);
     }
 
     @Test
     public void concertsFrom_ValidDate_ReturnsExpectedList() {
-        @SuppressWarnings("unchecked")
-        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
-        List<Concert> expectedList = new ArrayList<>();
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
+        when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
 
-        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
-        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
-                .thenReturn(mockTypedQuery);
-        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
-                .thenReturn(mockTypedQuery);
-
-        assertEquals(expectedList, concertDao.concertsFrom(new Date()));
+        assertEquals(uniqueConcertList, concertDao.concertsFrom(new Date()));
 
         verify(mockEntityManager).createNamedQuery(
                 Concert.NAMED_QUERY_RANGE_FROM, Concert.class);
@@ -132,25 +125,29 @@ public class ConcertDaoTest {
 
     @Test
     public void concertsTo_ValidDate_AddsOneDayAndReturnsExpectedList() {
-        @SuppressWarnings("unchecked")
-        final TypedQuery<Concert> mockTypedQuery = mock(TypedQuery.class);
-        List<Concert> expectedList = new ArrayList<>();
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
-        expectedList.add(mock(Concert.class));
+        when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
 
-        when(mockTypedQuery.getResultList()).thenReturn(expectedList);
-        when(mockTypedQuery.setParameter(anyInt(), any(Date.class)))
-                .thenReturn(mockTypedQuery);
-        when(mockEntityManager.createNamedQuery(anyString(), eq(Concert.class)))
-                .thenReturn(mockTypedQuery);
-
-        assertEquals(expectedList, concertDao.concertsTo(new Date(0)));
+        assertEquals(uniqueConcertList, concertDao.concertsTo(new Date(0)));
 
         verify(mockTypedQuery).setParameter(1,
                 new Date(TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)));
         verify(mockEntityManager).createNamedQuery(
                 Concert.NAMED_QUERY_RANGE_TO, Concert.class);
+    }
+
+    @Test
+    public void getTopConcerts_CallsEntityManager_ReturnsResult() {
+        final int numberOfConcerts = 5;
+
+        when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
+        when(mockTypedQuery.setMaxResults(anyInt())).thenReturn(mockTypedQuery);
+
+        assertEquals(uniqueConcertList,
+                concertDao.getTopConcerts(numberOfConcerts));
+
+        verify(mockEntityManager)
+                .createNamedQuery(Concert.NAMED_QUERY_ORDER_BY_TOP_CONCERTS, Concert.class);
+        verify(mockTypedQuery).setMaxResults(numberOfConcerts);
     }
 
     private static Concert validConcert() {

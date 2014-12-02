@@ -10,6 +10,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create" />
             <property name="hibernate.hbm2ddl.import_files" value="init.sql" />
             <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
         </properties>
     </persistence-unit>
 </persistence>

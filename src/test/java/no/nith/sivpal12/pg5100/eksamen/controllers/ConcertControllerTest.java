@@ -164,6 +164,15 @@ public class ConcertControllerTest {
         assertEquals(expectedConcert, acturalConcert);
     }
 
+    @Test
+    public void topConcerts_CallsDao_ReturnsResult() {
+        when(mockConcertDao.getTopConcerts(anyInt()))
+                .thenReturn(listOfConcerts);
+
+        assertEquals(listOfConcerts, concertController.topFiveConcerts());
+        verify(mockConcertDao).getTopConcerts(5);
+    }
+
     private static Concert validConcert() {
         final Concert concert = new Concert();
         final Artist artist = new Artist();
