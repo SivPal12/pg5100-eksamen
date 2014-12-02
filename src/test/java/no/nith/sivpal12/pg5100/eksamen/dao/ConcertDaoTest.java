@@ -135,6 +135,14 @@ public class ConcertDaoTest {
                 Concert.NAMED_QUERY_RANGE_TO, Concert.class);
     }
 
+    @Test
+    public void getTopConcerts_CallsEntityManager_ReturnsResult() {
+        when(mockTypedQuery.getResultList()).thenReturn(uniqueConcertList);
+        assertEquals(uniqueConcertList, concertDao.getTopConcerts());
+        verify(mockEntityManager)
+                .createNamedQuery(Concert.NAMED_QUERY_TOP_FIVE, Concert.class);
+    }
+
     private static Concert validConcert() {
         final Concert concert = new Concert();
         final Artist artist = new Artist();

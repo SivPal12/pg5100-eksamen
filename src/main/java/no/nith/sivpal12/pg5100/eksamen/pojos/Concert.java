@@ -45,6 +45,8 @@ public class Concert {
     public static final String NAMED_QUERY_RANGE_FULL = "range-full";
     public static final String NAMED_QUERY_RANGE_FROM = "range-from";
     public static final String NAMED_QUERY_RANGE_TO = "range-to";
+    // TODO Implement
+    public static final String NAMED_QUERY_TOP_FIVE = "top-five";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -77,8 +77,8 @@ public class ConcertDao  {
     }
 
     public List<Concert> getTopConcerts() {
-        // TODO Auto-generated method stub
-        throw new RuntimeException(String.format("'%s' not yet implemented",
-                ConcertDao.class.getName()));
+        return entityManager
+                .createNamedQuery(Concert.NAMED_QUERY_TOP_FIVE, Concert.class)
+                .getResultList();
     }
 }
