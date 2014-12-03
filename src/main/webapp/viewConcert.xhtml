@@ -6,6 +6,7 @@
     <f:event type="preRenderView" listener="#{concertController.load}" />
 </f:metadata>
 <ui:composition template="defaultTemplate.xhtml">
+    <ui:param name="title" value="#{translation.view_title_concert}" />
     <ui:define name="content">
         <h:panelGrid columns="2">
             <h:outputLabel value="#{translation.artist_name}" />

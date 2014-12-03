@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head>
-    <meta charset="UTF-8" />
-</h:head>
 <ui:composition template="defaultTemplate.xhtml">
+    <ui:param name="title" value="#{translation.view_title_all_artists}"/>
     <ui:define name="content">
         <h:dataTable value="#{artistController.allArtists}" var="currentArtist">
             <h:column>
