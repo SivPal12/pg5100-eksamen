@@ -6,16 +6,17 @@
 </h:head>
 <h:body>
     <h:form>
-        <h:messages />
-        <h:panelGrid columns="2">
+        <h:panelGrid columns="3">
             <h:outputLabel value="#{translation.artist_name}" />
-            <h:inputText value="#{artistController.uniqueArtistName}" />
+            <h:inputText id="name" value="#{artistController.uniqueArtistName}" />
+            <h:message for="name" />
 
             <h:outputLabel value="#{translation.genre}" />
-            <h:selectOneMenu value="#{artist.genre}">
+            <h:selectOneMenu id="genre" value="#{artist.genre}">
                 <f:selectItems value="#{genreController.allGenres}" var="currGenre" itemLabel="#{currGenre.genre}" />
                 <f:converter converterId="genreConverter" />
             </h:selectOneMenu>
+            <h:message for="genre" />
         </h:panelGrid>
         <h:commandButton value="#{translation.action_save}" action="#{artistController.save}" />
     </h:form>

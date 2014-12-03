@@ -1,11 +1,16 @@
 package no.nith.sivpal12.pg5100.eksamen.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import no.nith.sivpal12.pg5100.eksamen.dao.ArtistDao;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
@@ -25,9 +30,10 @@ public class ArtistControllerTest {
 
     @Mock
     private ArtistDao mockArtistDao;
-
     @Mock
     private Artist mockArtist;
+    @Mock
+    private FacesContext mockFacesContext;
 
     @InjectMocks
     private ArtistController artistController;
@@ -46,5 +52,7 @@ public class ArtistControllerTest {
         artistController.save();
 
         verify(mockArtistDao).save(mockArtist);
+        verify(mockFacesContext)
+                .addMessage(isNull(String.class), any(FacesMessage.class));
     }
 }
