@@ -89,6 +89,7 @@ public class ConcertController {
     }
 
     public void load() {
+        id = session.getCurrentConcertId();
         LOGGER.trace(String.format("Loading consert with id '%d'", getId()));
         concert = concertDao.find(getId());
     }
@@ -99,7 +100,7 @@ public class ConcertController {
     }
 
     public void doReserveTickets() {
-        LOGGER.trace(String.format("Reserving %d tickets",
+        LOGGER.trace(String.format("Trying to reserve %d tickets",
                 getNumTicketsToReserve()));
 
         ReserveTicketsResult result = ticketReserver
@@ -133,6 +134,7 @@ public class ConcertController {
     }
 
     public void setId(int id) {
+        LOGGER.trace(String.format("Setting id to '%s'", id));
         this.id = id;
         session.setCurrentConcertId(id);
     }
@@ -173,10 +175,8 @@ public class ConcertController {
 
     @PostConstruct
     private void initFields() {
-        if (id <= 0) {
-            id = session.getCurrentConcertId();
-        }
-        concert = concertDao.find(id);
+        LOGGER.trace("Init concert controller");
+        concert = new Concert();
         uniqueConcertName = "";
         clearDates();
     }

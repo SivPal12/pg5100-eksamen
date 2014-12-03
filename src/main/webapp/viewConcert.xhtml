@@ -7,6 +7,7 @@
 <f:metadata>
     <f:viewParam name="id" value="#{concertController.id}" />
     <f:viewAction action="#{concertController.load}" />
+    <f:event type="preRenderView" listener="#{concertController.load}"/>
 </f:metadata>
 <h:body>
     <h:panelGrid columns="2">
