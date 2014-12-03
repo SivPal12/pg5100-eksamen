@@ -15,7 +15,6 @@ import no.nith.sivpal12.pg5100.eksamen.constraints.UniqueArtistName;
 import no.nith.sivpal12.pg5100.eksamen.dao.ArtistDao;
 import no.nith.sivpal12.pg5100.eksamen.pojos.Artist;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +33,6 @@ public class ArtistController {
     private Artist artist;
 
     @UniqueArtistName
-    @NotEmpty
     @Pattern(regexp = ".*\\S+.*",
             message = "{org.hibernate.validator.constraints.NotEmpty.message}")
     private String uniqueArtistName;
