@@ -1,50 +1,48 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head>
-    <meta charset="UTF-8" />
-    <title>View concert</title>
-</h:head>
 <f:metadata>
     <f:viewParam name="id" value="#{concertController.id}" />
     <f:viewAction action="#{concertController.load}" />
-    <f:event type="preRenderView" listener="#{concertController.load}"/>
+    <f:event type="preRenderView" listener="#{concertController.load}" />
 </f:metadata>
-<h:body>
-    <h:panelGrid columns="2">
-        <h:outputLabel value="#{translation.artist_name}" />
-        <h:outputText value="#{concert.artist.name}" />
+<ui:composition template="defaultTemplate.xhtml">
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+            <h:outputLabel value="#{translation.artist_name}" />
+            <h:outputText value="#{concert.artist.name}" />
 
-        <h:outputLabel value="#{translation.concert_date}" />
-        <h:outputText value="#{concert.date}">
-            <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
-        </h:outputText>
+            <h:outputLabel value="#{translation.concert_date}" />
+            <h:outputText value="#{concert.date}">
+                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+            </h:outputText>
 
-        <h:outputLabel value="#{translation.concert_price}" />
-        <h:outputText value="#{concert.price}" />
+            <h:outputLabel value="#{translation.concert_price}" />
+            <h:outputText value="#{concert.price}" />
 
-        <h:outputLabel value="#{translation.concert_location}" />
-        <h:outputText value="#{concert.location}" />
+            <h:outputLabel value="#{translation.concert_location}" />
+            <h:outputText value="#{concert.location}" />
 
-        <h:outputLabel value="#{translation.concert_description}" />
-        <h:outputText value="#{concert.description}" />
+            <h:outputLabel value="#{translation.concert_description}" />
+            <h:outputText value="#{concert.description}" />
 
-        <h:outputLabel value="#{translation.concert_total_tickets}" />
-        <h:outputText value="#{concert.numTickets}" />
+            <h:outputLabel value="#{translation.concert_total_tickets}" />
+            <h:outputText value="#{concert.numTickets}" />
 
-        <h:outputLabel value="#{translation.concert_tickets_sold}" />
-        <h:outputText value="#{concert.ticketsSold}" />
+            <h:outputLabel value="#{translation.concert_tickets_sold}" />
+            <h:outputText value="#{concert.ticketsSold}" />
 
-        <h:outputLabel value="#{translation.concert_tickets_available}" />
-        <h:outputText value="#{concert.numTickets - concert.ticketsSold}" />
-    </h:panelGrid>
+            <h:outputLabel value="#{translation.concert_tickets_available}" />
+            <h:outputText value="#{concert.numTickets - concert.ticketsSold}" />
+        </h:panelGrid>
 
-    <h:messages />
-    <h:panelGrid columns="3">
-        <h:form>
-            <h:outputLabel value="#{translation.label_reserve_tickets}" />
-            <h:inputText value="#{concertController.numTicketsToReserve}"/>
-            <h:commandButton action="#{concertController.doReserveTickets}" value="#{translation.action_reserve_tickets}" />
-        </h:form>
-    </h:panelGrid>
-</h:body>
+        <h:messages />
+        <h:panelGrid columns="3">
+            <h:form>
+                <h:outputLabel value="#{translation.label_reserve_tickets}" />
+                <h:inputText value="#{concertController.numTicketsToReserve}" />
+                <h:commandButton action="#{concertController.doReserveTickets}" value="#{translation.action_reserve_tickets}" />
+            </h:form>
+        </h:panelGrid>
+    </ui:define>
+</ui:composition>
 </html>

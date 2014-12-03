@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <meta charset="UTF-8" />
+    <!-- Bootstrap stuff -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" />
+</h:head>
+<h:body>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><h:link value="All artists" outcome="allArtists" /></li>
+        <li role="presentation"><h:link value="New artist" outcome="newArtist" /></li>
+        <li role="presentation"><h:link value="New concert" outcome="newConcert" /></li>
+        <li role="presentation"><h:link value="Top five concerts" outcome="topFiveConcerts" /></li>
+        <li role="presentation"><h:link value="All concerts" outcome="viewConcerts" /></li>
+    </ul>
+    <ui:insert name="content" />
+</h:body>
+</html>
