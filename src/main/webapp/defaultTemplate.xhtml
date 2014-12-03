@@ -9,13 +9,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" />
 </h:head>
 <h:body>
-    <ul class="nav nav-tabs">
-        <li role="presentation"><h:link value="All artists" outcome="allArtists" /></li>
-        <li role="presentation"><h:link value="New artist" outcome="newArtist" /></li>
-        <li role="presentation"><h:link value="New concert" outcome="newConcert" /></li>
-        <li role="presentation"><h:link value="Top five concerts" outcome="topFiveConcerts" /></li>
-        <li role="presentation"><h:link value="All concerts" outcome="viewConcerts" /></li>
-    </ul>
+    <nav>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><h:link value="All artists" outcome="allArtists" /></li>
+            <li role="presentation"><h:link value="New artist" outcome="newArtist" /></li>
+            <li role="presentation"><h:link value="New concert" outcome="newConcert" /></li>
+            <li role="presentation"><h:link value="Top five concerts" outcome="topFiveConcerts" /></li>
+            <li role="presentation"><h:link value="All concerts" outcome="viewConcerts" /></li>
+        </ul>
+    </nav>
     <ui:insert name="content" />
 </h:body>
 </html>
