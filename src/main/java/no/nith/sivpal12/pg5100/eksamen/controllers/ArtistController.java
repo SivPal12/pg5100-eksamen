@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Pattern;
@@ -24,6 +26,8 @@ public class ArtistController {
 
     @Inject
     private ArtistDao artistDao;
+    @Inject
+    private FacesContext facesContext;
 
     @Named
     @Produces
@@ -43,7 +47,12 @@ public class ArtistController {
         artist.setName(uniqueArtistName);
         LOGGER.trace(String.format("Saving %s", artist));
         artistDao.save(artist);
+        setViewMessage(String.format("Artist '%s' added", artist.getName()));
         initFields();
+    }
+
+    private void setViewMessage(String message) {
+        facesContext.addMessage(null, new FacesMessage(message));
     }
 
     public String getUniqueArtistName() {
