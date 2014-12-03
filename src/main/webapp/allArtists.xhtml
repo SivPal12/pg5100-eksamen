@@ -3,9 +3,9 @@
 <ui:composition template="defaultTemplate.xhtml">
     <ui:param name="title" value="#{translation.view_title_all_artists}"/>
     <ui:define name="content">
-        <h:dataTable value="#{artistController.allArtists}" var="currentArtist">
+        <h:dataTable value="#{artistController.allArtists}" var="currentArtist" styleClass="table">
             <h:column>
-                <f:facet name="header">
+                <f:facet name="header" class="panel panel-default">
                     <h:outputText value="#{translation.artist_name}" />
                 </f:facet>
                 <h:outputText value="#{currentArtist.name}" />
