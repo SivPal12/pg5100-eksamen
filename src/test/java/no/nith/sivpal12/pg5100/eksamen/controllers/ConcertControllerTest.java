@@ -33,6 +33,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ConcertControllerTest {
 
+    private static final String FIELD_CONCERT_CONTROLLER_CONCERT = "concert";
+
     @Mock
     private ConcertDao mockConcertDao;
     @Mock
@@ -60,7 +62,8 @@ public class ConcertControllerTest {
 
     @Test
     public void save_ValidConcert_CallsDao() {
-        Whitebox.setInternalState(concertController, "concert", validConcert);
+        Whitebox.setInternalState(concertController,
+                FIELD_CONCERT_CONTROLLER_CONCERT, validConcert);
 
         concertController.save();
 
@@ -69,16 +72,17 @@ public class ConcertControllerTest {
 
     @Test
     public void load_CallsDaoWithId_NewConcertIsSet() {
-        assertNull(Whitebox.getInternalState(concertController, "concert"));
+        assertNull(Whitebox.getInternalState(concertController,
+                FIELD_CONCERT_CONTROLLER_CONCERT));
         final int rand = new Random().nextInt();
 
         when(mockConcertDao.find(rand)).thenReturn(validConcert);
-        concertController.setId(rand);
+        when(mockSession.getCurrentConcertId()).thenReturn(rand);
 
         concertController.load();
 
         final Concert actualConcert = (Concert) Whitebox.getInternalState(
-                concertController, "concert");
+                concertController, FIELD_CONCERT_CONTROLLER_CONCERT);
         assertEquals(validConcert, actualConcert);
         verify(mockConcertDao).find(rand);
     }
@@ -159,7 +163,8 @@ public class ConcertControllerTest {
         concertController.doReserveTickets();
 
         final Concert acturalConcert = (Concert) Whitebox
-                .getInternalState(concertController, "concert");
+                .getInternalState(concertController,
+                        FIELD_CONCERT_CONTROLLER_CONCERT);
 
         assertEquals(expectedConcert, acturalConcert);
     }
