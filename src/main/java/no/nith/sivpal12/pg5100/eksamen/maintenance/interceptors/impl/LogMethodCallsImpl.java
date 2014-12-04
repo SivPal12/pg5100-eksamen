@@ -28,7 +28,8 @@ public class LogMethodCallsImpl {
             LOGGER.info(
                     String.format(
                             "Method '%s' was called with parameters %s",
-                            ctx.getMethod().getDeclaringClass().getName() + "."
+                            ctx.getMethod().getDeclaringClass().getSimpleName()
+                                    + "."
                                     + ctx.getMethod().getName(),
                             params
                             )
