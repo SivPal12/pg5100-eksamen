@@ -8,7 +8,7 @@
         <jar-file>target</jar-file>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/oslo-konserter/test" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:/oslo-konserter/test" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="" />
             <property name="dialect" value="org.hibernate.dialect.H2Dialect" />
@@ -16,6 +16,7 @@
             <property name="hibernate.hbm2ddl.import_files" value="init.sql" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.archive.autodetection" value="class, hbm" />
+            <property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
         </properties>
     </persistence-unit>
 </persistence>
