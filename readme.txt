@@ -1,1 +1,2 @@
-Application needs an external H2 server running.
+What to config:
+    Modify init.sql script to remove dummy data.
