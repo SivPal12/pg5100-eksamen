@@ -1,5 +1,5 @@
 -- Required values
-INSERT INTO Genre VALUES
+INSERT INTO Genre ( id , genre ) VALUES
     (1,'pop'),
     (2,'blues'),
     (3,'country'),
@@ -8,14 +8,14 @@ INSERT INTO Genre VALUES
 ;
 
 -- Dummy data
-INSERT INTO Artist VALUES
+INSERT INTO Artist ( id , name , genre_id ) VALUES
     (1,'Buckcherry',5),
     (2,'Johnny Cash',3),
     (3,'Seether',5),
     (4,'Meghan Trainor',1),
     (5,'The Blues Brothers',2),
-    (5,'AC/DC',4),
-    (5,'Kiss',2)
+    (6,'AC/DC',4),
+    (7,'Kiss',2)
 ;
 
 insert into Concert ( id, date, description, location, name, numtickets, price, artist_id, ticketssold) values
