@@ -3,38 +3,9 @@
 <ui:composition template="defaultTemplate.xhtml">
     <ui:param name="title" value="#{translation.view_title_top_five_concerts}" />
     <ui:define name="content">
-        <h:form>
-            <h:dataTable value="#{topFiveConcerts}" var="currentConcert">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{translation.concert_name}" />
-                    </f:facet>
-                    <h:link value="#{currentConcert.name}" outcome="viewConcert" includeViewParams="true">
-                        <f:param name="id" value="#{currentConcert.id}" />
-                    </h:link>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{translation.artist_name}" />
-                    </f:facet>
-                    <h:outputText value="#{currentConcert.artist.name}"></h:outputText>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{translation.concert_date}" />
-                    </f:facet>
-                    <h:outputText value="#{currentConcert.date}">
-                        <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
-                    </h:outputText>
-                </h:column>
-
-                <h:column>
-                    <h:commandButton value="#{translation.action_delete}" action="#{concertController.remove(currentConcert.id)}" />
-                </h:column>
-            </h:dataTable>
-        </h:form>
+        <ui:include src="/concertsTable.xhtml">
+            <ui:param name="concerts" value="#{topFiveConcerts}"></ui:param>
+        </ui:include>
     </ui:define>
 </ui:composition>
 </html>
