@@ -6,10 +6,10 @@
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>/tmp/testFile.log</file>
+        <file>/tmp/methodCalls.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d %-5level - %msg%n</pattern>
+            <pattern>%d - %msg%n</pattern>
         </encoder>
     </appender>
     <logger name="org.hibernate" level="INFO" />
