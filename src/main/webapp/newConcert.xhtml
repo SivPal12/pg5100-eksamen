@@ -3,47 +3,60 @@
 <ui:composition template="defaultTemplate.xhtml">
     <ui:param name="title" value="#{translation.view_title_new_concert}" />
     <ui:define name="content">
+        <h:messages globalOnly="true" />
         <h:form>
-            <h:panelGrid columns="3">
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_name}" />
-                <h:inputText id="concertName" value="#{concertController.uniqueConcertName}" />
-                <h:message for="concertName" />
+                <span><h:message for="concertName" errorClass="text-danger" /></span>
+                <h:inputText id="concertName" value="#{concertController.uniqueConcertName}" styleClass="form-control" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.artist_name}" />
-                <h:selectOneMenu id="artist" value="#{concert.artist}">
+                <span><h:message for="artist" errorClass="text-danger" /></span>
+                <h:selectOneMenu id="artist" value="#{concert.artist}" styleClass="form-control">
                     <f:selectItems value="#{artistController.allArtists}" var="item" itemLabel="#{item.name}" />
                     <f:converter converterId="artistConverter" />
                 </h:selectOneMenu>
-                <h:message for="artist" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_date}" />
-                <h:inputText id="concertDate" value="#{concert.date}">
+                <span><h:message for="concertDate" errorClass="text-danger" /></span>
+                <h:inputText id="concertDate" value="#{concert.date}" styleClass="form-control">
                     <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
                 </h:inputText>
-                <h:message for="concertDate" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_price}" />
-                <h:inputText id="concertPrice" value="#{concert.price}">
+                <span><h:message for="concertPrice" errorClass="text-danger" /></span>
+                <h:inputText id="concertPrice" value="#{concert.price}" styleClass="form-control">
                     <f:convertNumber integerOnly="true" />
                 </h:inputText>
-                <h:message for="concertPrice" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_location}" />
-                <h:inputText id="concertLocation" value="#{concert.location}" />
-                <h:message for="concertLocation" />
+                <span><h:message for="concertLocation" /></span>
+                <h:inputText id="concertLocation" value="#{concert.location}" styleClass="form-control" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_description}" />
-                <h:inputTextarea id="concertDesc" value="#{concert.description}" />
-                <h:message for="concertDesc" />
+                <span><h:message for="concertDesc" errorClass="text-danger" /></span>
+                <h:inputTextarea id="concertDesc" value="#{concert.description}" styleClass="form-control" />
+            </div>
 
+            <div class="form-group">
                 <h:outputLabel value="#{translation.concert_total_tickets}" />
-                <h:inputText id="concertNumTickets" value="#{concert.numTickets}">
+                <span><h:message for="concertNumTickets" errorClass="text-danger" /></span>
+                <h:inputText id="concertNumTickets" value="#{concert.numTickets}" styleClass="form-control">
                     <f:convertNumber integerOnly="true" />
                 </h:inputText>
-                <h:message for="concertNumTickets" />
+            </div>
 
-            </h:panelGrid>
-            <h:commandButton value="#{translation.action_save}" action="#{concertController.save}" />
+            <h:commandButton value="#{translation.action_save}" action="#{concertController.save}" styleClass="btn btn-default" />
         </h:form>
     </ui:define>
 </ui:composition>
