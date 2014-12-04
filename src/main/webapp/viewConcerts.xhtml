@@ -3,25 +3,27 @@
 <ui:composition template="defaultTemplate.xhtml">
     <ui:param name="title" value="#{translation.view_title_all_concerts}" />
     <ui:define name="content">
-        <h:form styleClass="form-inline">
-            <div class="form-group">
-                <h:outputLabel value="#{translation.concert_date_from}" styleClass="sr-only" />
-                <h:inputText id="concertFromDate" value="#{concertController.from}" styleClass="form-control" a:placeHolder="#{translation.concert_date_from}">
-                    <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
-                </h:inputText>
-                <h:message for="concertFromDate" errorClass="text-danger" />
-            </div>
+        <div class="col-sm-8 col-sm-offset-2">
+            <h:form styleClass="form-inline">
+                <div class="form-group">
+                    <h:outputLabel value="#{translation.concert_date_from}" styleClass="sr-only" />
+                    <h:inputText id="concertFromDate" value="#{concertController.from}" styleClass="form-control" a:placeHolder="#{translation.concert_date_from}">
+                        <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+                    </h:inputText>
+                    <h:message for="concertFromDate" errorClass="text-danger" />
+                </div>
 
-            <div class="form-group">
-                <h:outputLabel value="#{translation.concert_date_to}" styleClass="sr-only" />
-                <h:inputText id="concertToDate" value="#{concertController.to}" styleClass="form-control" a:placeHolder="#{translation.concert_date_to}">
-                    <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
-                </h:inputText>
-                <h:message for="concertToDate" errorClass="text-danger" />
-            </div>
-            <h:commandButton value="#{translation.action_update}" styleClass="btn btn-primary" />
-            <h:commandButton value="#{translation.action_clear}" action="#{concertController.clearDates}" styleClass="btn btn-default" />
-        </h:form>
+                <div class="form-group">
+                    <h:outputLabel value="#{translation.concert_date_to}" styleClass="sr-only" />
+                    <h:inputText id="concertToDate" value="#{concertController.to}" styleClass="form-control" a:placeHolder="#{translation.concert_date_to}">
+                        <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+                    </h:inputText>
+                    <h:message for="concertToDate" errorClass="text-danger" />
+                </div>
+                <h:commandButton value="#{translation.action_update}" styleClass="btn btn-primary" />
+                <h:commandButton value="#{translation.action_clear}" action="#{concertController.clearDates}" styleClass="btn btn-default" />
+            </h:form>
+        </div>
 
         <ui:include src="/concertsTable.xhtml">
             <ui:param name="concerts" value="#{filteredConcerts}"></ui:param>
