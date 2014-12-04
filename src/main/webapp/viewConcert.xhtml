@@ -8,42 +8,73 @@
 <ui:composition template="defaultTemplate.xhtml">
     <ui:param name="title" value="#{translation.view_title_concert}" />
     <ui:define name="content">
-        <h:panelGrid columns="2">
-            <h:outputLabel value="#{translation.artist_name}" />
-            <h:outputText value="#{concert.artist.name}" />
+        <dl class="dl-horizontal">
+            <dt>
+                <h:outputText value="#{translation.artist_name}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.artist.name}" />
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_date}" />
-            <h:outputText value="#{concert.date}">
-                <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
-            </h:outputText>
+            <dt>
+                <h:outputText value="#{translation.concert_date}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.date}">
+                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                </h:outputText>
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_price}" />
-            <h:outputText value="#{concert.price}" />
+            <dt>
+                <h:outputText value="#{translation.concert_price}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.price}" />
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_location}" />
-            <h:outputText value="#{concert.location}" />
+            <dt>
+                <h:outputText value="#{translation.concert_location}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.location}" />
+            </dd>
+            <dt>
+                <h:outputText value="#{translation.concert_description}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.description}" />
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_description}" />
-            <h:outputText value="#{concert.description}" />
+            <dt>
+                <h:outputText value="#{translation.concert_total_tickets}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.numTickets}" />
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_total_tickets}" />
-            <h:outputText value="#{concert.numTickets}" />
+            <dt>
+                <h:outputText value="#{translation.concert_tickets_sold}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.ticketsSold}" />
+            </dd>
 
-            <h:outputLabel value="#{translation.concert_tickets_sold}" />
-            <h:outputText value="#{concert.ticketsSold}" />
+            <dt>
+                <h:outputText value="#{translation.concert_tickets_available}" />
+            </dt>
+            <dd>
+                <h:outputText value="#{concert.numTickets - concert.ticketsSold}" />
+            </dd>
+        </dl>
 
-            <h:outputLabel value="#{translation.concert_tickets_available}" />
-            <h:outputText value="#{concert.numTickets - concert.ticketsSold}" />
-        </h:panelGrid>
-
-        <h:messages />
-        <h:panelGrid columns="3">
-            <h:form>
+        <h:form styleClass="form-inline">
+            <h:messages errorClass="text-danger" />
+            <div class="form-group">
                 <h:outputLabel value="#{translation.label_reserve_tickets}" />
                 <h:inputText value="#{concertController.numTicketsToReserve}" />
-                <h:commandButton action="#{concertController.doReserveTickets}" value="#{translation.action_reserve_tickets}" />
-            </h:form>
-        </h:panelGrid>
+            </div>
+            <h:commandButton action="#{concertController.doReserveTickets}" value="#{translation.action_reserve_tickets}" styleClass="btn btn-default" />
+        </h:form>
     </ui:define>
 </ui:composition>
 </html>
