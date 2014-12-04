@@ -4,3 +4,7 @@ What to config:
 
 How to run:
     Run 'mvn wildfly:run' to start the applicaton.
+    Application wil be available at:
+    'host:port/runtimeName/faces/viewConcerts.xhtml'
+    exsample:
+    'localhost:8080/pg5100-eksamen-1.0.3-SNAPSHOT/faces/viewConcerts.xhtml'
