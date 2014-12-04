@@ -3,7 +3,7 @@
     <groupId>no.nith.sivpal12</groupId>
     <artifactId>pg5100-eksamen</artifactId>
     <packaging>war</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>pg5100-eksamen</name>
     <build>
         <plugins>
@@ -69,6 +69,11 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
             </plugin>
         </plugins>
     </build>
