@@ -3,15 +3,14 @@ INSERT INTO Genre ( id , genre ) VALUES
     (1,'pop'),
     (2,'blues'),
     (3,'country'),
-    (4,'hard'),
-    (5,'rock')
+    (4,'hard rock')
 ;
 
 -- Dummy data
 INSERT INTO Artist ( id , name , genre_id ) VALUES
-    (1,'Buckcherry',5),
+    (1,'Buckcherry',4),
     (2,'Johnny Cash',3),
-    (3,'Seether',5),
+    (3,'Seether',4),
     (4,'Meghan Trainor',1),
     (5,'The Blues Brothers',2),
     (6,'AC/DC',4),
