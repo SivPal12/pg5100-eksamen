@@ -86,6 +86,7 @@ public class ConcertController {
         LOGGER.debug(String.format("Saving %s", concert));
         concertDao.save(concert);
         initFields();
+        setViewMessage("Concert created");
     }
 
     public void load() {
