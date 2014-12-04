@@ -14,6 +14,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -65,6 +66,7 @@ public class Concert {
     @NotEmpty
     private String location;
     @NotEmpty
+    @Length(max = 255)
     private String description;
     @DecimalMin(value = "1")
     private int numTickets;

@@ -1,8 +1,5 @@
 package no.nith.sivpal12.pg5100.eksamen.maintenance.interceptors.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -21,18 +18,17 @@ public class LogMethodCallsImpl {
     @AroundInvoke
     public Object logValues(InvocationContext ctx) throws Exception {
         try {
-            List<String> params = new LinkedList<>();
-            for (Object param : ctx.getParameters()) {
-                params.add(param.toString());
+            final Object[] paramArray = ctx.getParameters();
+            String params =
+                    paramArray.length > 0 ? paramArray[0].toString() : "";
+
+            for (int i = 1; i < paramArray.length; i++) {
+                params += ", " + paramArray[i];
             }
-            LOGGER.info(
-                    String.format(
-                            "Method '%s' was called with parameters %s",
-                            ctx.getMethod().getDeclaringClass().getName() + "."
-                                    + ctx.getMethod().getName(),
-                            params
-                            )
-                    );
+            LOGGER.info(String.format(
+                    "%s.%s(%s)",
+                    ctx.getMethod().getDeclaringClass().getSimpleName(),
+                    ctx.getMethod().getName(), params));
         } finally {
             return ctx.proceed();
         }

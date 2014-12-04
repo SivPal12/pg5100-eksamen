@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="defaultTemplate.xhtml">
-    <ui:param name="title" value="#{translation.view_title_all_artists}"/>
+    <ui:param name="title" value="#{translation.view_title_all_artists}" />
     <ui:define name="content">
-        <h:dataTable value="#{artistController.allArtists}" var="currentArtist" styleClass="table table-striped">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="#{translation.artist_name}" />
-                </f:facet>
-                <h:outputText value="#{currentArtist.name}" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="#{translation.genre}" />
-                </f:facet>
-                <h:outputText value="#{currentArtist.genre.genre}" />
-            </h:column>
-        </h:dataTable>
+        <div class="center-block">
+            <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+                <h:dataTable value="#{artistController.allArtists}" var="currentArtist" styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{translation.artist_name}" />
+                        </f:facet>
+                        <h:outputText value="#{currentArtist.name}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{translation.genre}" />
+                        </f:facet>
+                        <h:outputText value="#{currentArtist.genre.genre}" />
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
 </html>

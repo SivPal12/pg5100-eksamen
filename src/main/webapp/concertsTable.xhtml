@@ -1,38 +1,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
-    <h:form>
-        <h:dataTable value="#{concerts}" var="currentConcert" styleClass="table table-striped">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="#{translation.concert_name}" />
-                </f:facet>
-                <h:link value="#{currentConcert.name}" outcome="viewConcert" includeViewParams="true">
-                    <f:param name="id" value="#{currentConcert.id}" />
-                </h:link>
-            </h:column>
+    <div class="col-sm-8 col-sm-offset-2">
+        <h:form>
+            <h:dataTable value="#{concerts}" var="currentConcert" styleClass="table table-striped">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{translation.concert_name}" />
+                    </f:facet>
+                    <h:link value="#{currentConcert.name}" outcome="viewConcert" includeViewParams="true">
+                        <f:param name="id" value="#{currentConcert.id}" />
+                    </h:link>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="#{translation.artist_name}" />
-                </f:facet>
-                <h:outputText value="#{currentConcert.artist.name}"></h:outputText>
-            </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{translation.artist_name}" />
+                    </f:facet>
+                    <h:outputText value="#{currentConcert.artist.name}"></h:outputText>
+                </h:column>
 
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText value="#{translation.concert_date}" />
-                </f:facet>
-                <h:outputText value="#{currentConcert.date}">
-                    <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
-                </h:outputText>
-            </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{translation.concert_date}" />
+                    </f:facet>
+                    <h:outputText value="#{currentConcert.date}">
+                        <f:convertDateTime type="date" pattern="#{translation.concert_date_pattern}" />
+                    </h:outputText>
+                </h:column>
 
-            <h:column>
-                <h:commandButton value="#{translation.action_delete}" action="#{concertController.remove(currentConcert.id)}" styleClass="btn btn-danger" />
-            </h:column>
-        </h:dataTable>
-    </h:form>
-
+                <h:column>
+                    <h:commandButton value="#{translation.action_delete}" action="#{concertController.remove(currentConcert.id)}" styleClass="btn btn-danger" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </div>
 </ui:composition>
 </html>
