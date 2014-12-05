@@ -3,7 +3,7 @@
     <groupId>no.nith.sivpal12</groupId>
     <artifactId>pg5100-eksamen</artifactId>
     <packaging>war</packaging>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>pg5100-eksamen</name>
     <build>
         <finalName>pg5100-eksamen-sivpal12</finalName>
